@@ -1,0 +1,104 @@
+body {
+	background: #000;
+	color: #fff;
+	margin: 10px;
+}
+
+#form {
+	width: 45%;
+	float: left;
+}
+
+#vid_div {
+	float: left;
+}
+
+#video {
+    height: 64%;
+	float: left;
+}
+
+#map {
+	height: 64%;
+	position: absolute;
+	right: 10px;
+	overflow: hidden;
+}
+
+#map_img {
+	width: 2739px;
+	height: 2739px;
+	display: block;
+	position: absolute;
+	top: -2289px;
+	left: -222px;
+}
+
+#map_img:hover {
+	cursor: move;
+}
+
+#plot_button {
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+}
+
+#info-wrapper {
+	color: DarkRed;
+	position: absolute;
+	height: 30%;
+    height: -webkit-calc(30% - 6px);
+    height: -moz-calc(30% - 6px);
+    height: calc(30% - 6px);
+	left: 10px;
+	bottom: 10px;
+	right: 10px;
+	padding: 3px;
+	overflow: hidden;
+}
+
+#info-wrapper h3 {
+	margin: 0;
+	margin-bottom: 3px;
+	font-size: 20px;
+}
+
+#info {
+	font-family: sans-serif;
+	font-size: larger;
+	height: auto;
+    height: -webkit-calc(100% - 23px);
+    height: -moz-calc(100% - 23px);
+    height: calc(100% - 23px);
+	width: 5000px;
+	overflow: hidden;
+}
+
+.character {
+	border: ridge 3px #999;
+	background-color: #555;
+	padding: 3px;
+	float: left;
+	height: 100%;
+    height: -webkit-calc(100% - 12px);
+    height: -moz-calc(100% - 12px);
+    height: calc(100% - 12px);
+	width: auto;
+	margin-right: 10px;
+}
+
+.character:hover {
+	cursor: pointer;
+}
+
+.character p {
+	margin: 0;
+	margin-right: 15px;
+	float: left;
+}
+
+.char_img {
+	float: left;
+	height: 100%;	
+}

@@ -1,0 +1,38 @@
+<characters>
+	<character>
+		<id>EddardStark</id>
+		<name>Eddard Stark</name>
+		<prefix startSeason="1" startEpisode="1" startTime="669">Lord</prefix>
+		<first_name>Eddard</first_name>
+		<nickname>Ned</nickname>
+		<house>Stark</house>
+		<titles>
+			<title>
+				Lord of Winterfell
+			</title>
+			<title>
+				Warden of the North
+			</title>
+			<title startSeason="1" startEpisode="1" startTime="1792">
+				Hand of the King
+			</title>
+		</titles>
+		<facts>
+			<fact startSeason="1" startEpisode="1" startTime="669">
+				He is Lord of Winterfell.
+			</fact>
+			<fact startSeason="1" startEpisode="1" startTime="593">
+				He is father to <link id="BrandonStark">Brandon Stark</link> and Jon Snow.
+			</fact>
+		</facts>
+	</character>
+	<character>
+		<id>BrandonStark</id>
+		<name>Brandon Stark</name>
+		<first_name>Brandon</first_name>
+		<nickname>Bran</nickname>
+		<house>Stark</house>
+		<titles>
+		</titles>
+	</character>
+</characters>

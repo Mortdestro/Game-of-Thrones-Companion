@@ -1,0 +1,62 @@
+<html>
+	<head>
+		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+		<script src="XMLParse.js"></script>
+		<script src="character_stuff.js"></script>
+		<script src="character_page.js"></script>
+		<link href="style2.css" rel="stylesheet" type="text/css" />
+		<script>
+			var charId, character, prefix, firstName, nickname, house, season, episode, time;
+			var facts = new Array();
+			var params = new Array();
+
+			function init() {
+				loadXMLDoc("characters.xml");
+				querySearch();
+				charId = params["id"];
+				season = parseInt(localStorage.season);
+				episode = parseInt(localStorage.episode);
+				time = parseInt(localStorage.time);
+				character = getCharacter(charId);
+				prefix = getText(character, "prefix")
+				firstName = getText(character, "first_name");
+				nickname = getText(character, "nickname");
+				house = getText(character, "house");
+				$("#name").append(prefix + " " + firstName + " \"" + nickname + "\" " + house);
+				jQuery("<img/>", {src: "character_images/" + charId + '.jpg'}).appendTo("#picture");
+				facts = character.getElementsByTagName("facts")[0].getElementsByTagName("fact");
+				loadFacts();
+			}
+
+			// Search the query for the character ID
+			function querySearch() {
+				var query = window.location.search.substring(1);
+				var kvPairs = query.split('&');
+				for (var i = 0; i < kvPairs.length; i++) {
+					var pos = kvPairs[i].indexOf('=');
+					if (pos > 0) {
+						var key = kvPairs[i].substring(0, pos);
+						var val = kvPairs[i].substring(pos + 1);
+						params[key] = val;
+					}
+				}
+			}
+		</script>
+	</head>
+
+	<body onload="init()">
+		<div id="content">
+			<div id="name"></div>
+			<div id="picture"></div>
+			<div id="facts">
+				<div id="facts-label">
+					<h2>What We Know</h2>
+				</div>
+				<div id="facts-content">
+					<ul id="list">
+					</ul>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

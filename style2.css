@@ -1,0 +1,42 @@
+body {
+	background: #000;
+	color: #fff;
+	margin: 0;
+	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+	font-style: italic;
+}
+
+#content {
+	margin-left: 15%;
+	margin-right: 15%;
+	border-left: 1px solid;
+	border-right: 1px solid;
+	padding-top: 20px;
+	padding-left: 20px;
+	padding-right: 20px;
+	height: 100%;
+}
+
+#name {
+	float: left;
+	font-size: 32pt;
+	margin-right: 10px;
+	width: auto;
+    width: -webkit-calc(100% - 318px);
+    width: -moz-calc(100% - 318px);
+	width: calc(100% - 318px);
+}
+
+#picture {
+	float: right;
+	border: 1px solid;
+	padding: 3px;
+}
+
+#facts {
+	float: left;
+	width: auto;
+    width: -webkit-calc(100% - 318px);
+    width: -moz-calc(100% - 318px);
+	width: calc(100% - 318px);
+}
