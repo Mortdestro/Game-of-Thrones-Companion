@@ -1,0 +1,115 @@
+<html>
+	<head>
+		<title>
+			Game of Thrones Companion
+		</title>
+		<link href="style.css" rel="stylesheet" type="text/css" />
+		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+		<script src="jquery/jquery.mousewheel.js"></script>
+		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		<script src="http://popcornjs.org/code/dist/popcorn-complete.js"></script>
+		<script src="XMLParse.js"></script>
+		<script src="map_functions.js"></script>
+		<script src="popcorn_handler.js"></script>
+		<script src="character_stuff.js"></script>
+		<script>
+			
+			function init() {
+				mapInit();
+				infoInit();
+				loadXMLDoc("characters.xml");
+			}	
+
+			function setup() {
+				// Get form values //
+				var file = $("#fileinput").get(0).files[0];
+				season = $("#season").get(0).value;
+				localStorage.season = season;
+				episode = $("#episode").get(0).value;
+				localStorage.episode = episode;
+
+				// Get rid of the form //
+				$("#form").remove();
+				$("#title").remove();
+
+				// Set up video for playing //
+				var objectURL = window.URL.createObjectURL(file);
+				var vid = document.createElement('video');
+				var source = document.createElement('source');
+				vid.appendChild(source);
+				vid.controls = true;
+				vid.id = 'video';
+				vid.addEventListener("loadedmetadata", function() {return setup2(season, episode);});
+				vid.addEventListener("timeupdate", saveTime);
+				source.src = objectURL;
+				source.type = 'video/mp4';
+				var map = document.getElementById('map');
+				document.getElementById('vid_div').insertBefore(vid, null);
+
+				// Add Popcorn functionality //
+				var popcorn = Popcorn( "#video" );
+				doPops(popcorn, season, episode);
+			}
+			
+			function setup2(season, episode) {				
+				// Change map to adjust with video //
+				docWidth = $(document).outerWidth();
+				var top = $("#map").offset().top;
+				var left = $("#map").offset().left;
+				height = $("#map").outerHeight();
+				width = $("#map").outerWidth();
+				$("#map").css('width', docWidth - 40 - $("#vid_div").outerWidth() + 'px');
+				$("#map_img").draggable("option", "containment", [left - 4642 * currZoom + 450, top - 4642 * currZoom + 450, left, top]);
+				$("#map_img").css('left', (currCoords.x * currZoom - width / 2) * -1 + 'px');
+				$("#map_img").css('top', (currCoords.y * currZoom - height / 2) * -1 + 'px');
+			}
+			
+			// Save the current time using HTML5 storage //
+			function saveTime(e) {
+				if (typeof(Storage) !== "undefined") {
+					localStorage.time = e.currentTarget.currentTime;
+				}
+			}
+			
+			// Handle resize //
+			function resize() {
+				if (!!document.getElementById("video")) {
+					// If the video has been loaded
+					docWidth = $(document).outerWidth();
+					mapObject.resize(docWidth - 40 - $("#video").outerWidth());
+				} else {
+					// If the video hasn't been loaded
+					docWidth = $(document).outerWidth();
+					mapObject.resize(docWidth * .45);
+				}
+				infoInit();
+			}
+		</script>
+	</head>
+	<body onload="init()" onresize="resize()">
+		<form id="form" action="javascript:setup();">
+			<label for="fileinput">Video file:</label>
+			<input id="fileinput" type="file" name="filechooser" size="10" accept="video/*" required></input><br />
+			<label for="season">Season:</label>
+			<select id="season" name="season" required>
+				<option value=1>1</option>
+			</select></br>
+			<label for="episode">Episode:</label>
+			<select id="episode" name="episode" required>
+				<option value=1>1</option>
+			</select></br>
+			<input type="submit" id="submit" name="submit" value="Go"></input>
+		</form>
+		<div id='content'>
+			<div id='vid_div'></div>
+			<div id='map'>
+				<img id="map_img" src="speculative_map.jpg" />
+				<input id="plot_button" type="button" value="Current Location" onclick="currentLocation()" />
+			</div>
+			<div id='info-wrapper'>
+				<h3>Relevant pages:</h3>
+				<div id='info'></div>
+			</div>
+		</div>
+	</body>
+</html>
