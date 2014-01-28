@@ -27,6 +27,7 @@ function getPosition(name) {
 	return coordinates;
 }
 
+// Move the map to the coordinates of the show's current location
 function currentLocation() {
 	if (!!mapObject) {
 		if (!!mapObject.plotCoords) {

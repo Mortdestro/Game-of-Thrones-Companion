@@ -31,7 +31,8 @@ function infoInit() {
 function getCharacter(id) {
 	var characters = xmlDoc.getElementsByTagName("characters")[0].getElementsByTagName("character");
 	// Note: iterates through local characters (in XML), not global array
-	for (character in characters) {
+	for (i = 0; i < characters.length; i++) {
+		character = characters[i];
 		charId = character.getElementsByTagName("id")[0].textContent;
 		if (charId == id) {
 			console.log("Character: " + charId);

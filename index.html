@@ -59,9 +59,9 @@
 				height = $("#map").outerHeight();
 				width = $("#map").outerWidth();
 				$("#map").css('width', docWidth - 40 - $("#vid_div").outerWidth() + 'px');
-				$("#map_img").draggable("option", "containment", [left - 4642 * currZoom + 450, top - 4642 * currZoom + 450, left, top]);
-				$("#map_img").css('left', (currCoords.x * currZoom - width / 2) * -1 + 'px');
-				$("#map_img").css('top', (currCoords.y * currZoom - height / 2) * -1 + 'px');
+				$("#map_img").draggable("option", "containment", [left - 4642 * mapObject.currZoom + 450, top - 4642 * currZoom + 450, left, top]);
+				$("#map_img").css('left', (mapObject.currCoords.x * mapObject.currZoom - width / 2) * -1 + 'px');
+				$("#map_img").css('top', (mapObject.currCoords.y * mapObject.currZoom - height / 2) * -1 + 'px');
 			}
 			
 			// Save the current time using HTML5 storage //

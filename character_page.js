@@ -13,6 +13,13 @@ function loadFacts() {
 		var inRange = checkRange(fact);
 		if (inRange) {
 			// Add fact to the list
+			link = fact.getElementsByTagName('link')[0];
+			if (!!link) {
+				console.log(fact.childNodes[0]);
+				console.log(link.getAttribute('id'));
+				console.log(fact.childNodes[1]);
+				console.log(fact.childNodes[2]);
+			}
 			jQuery("<li/>", {"class": fact}).text(fact.textContent).appendTo("#list");
 		}
 	}
