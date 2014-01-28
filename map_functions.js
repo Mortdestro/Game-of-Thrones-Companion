@@ -7,7 +7,7 @@ function mapInit() {
 	// var initCoords = {x: 758, y: 4261};
 	var initCoords = {x: 1000, y: 1000};
 	// Create the map
-	mapObject = new map(map_img, null, initCoords, initZoom, docWidth * .45, 4642, 4642);
+	mapObject = new Map(map_img, null, initCoords, initZoom, docWidth * .45, 4642, 4642);
 }
 
 // Get the coordinates of important locations by name
@@ -38,7 +38,8 @@ function currentLocation() {
 	}
 }
 
-function map(map_img, plotCoords, initCoords, initZoom, windowWidth, mapWidth, mapHeight) {
+function Map(map_img, plotCoords, initCoords, initZoom, windowWidth, mapWidth, mapHeight) {
+
 	this.map_img = map_img;
 	this.plotCoords = plotCoords;
 	this.currCoords = {x: initCoords.x, y: initCoords.y};

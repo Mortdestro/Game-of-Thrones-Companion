@@ -55,14 +55,14 @@ function winterIsComing(pop) {
 	pop.code({
 		start: 593, // 9:53
 		onStart: function() {
-			if (!$("#EddardStark"))
+			if (!!$("#EddardStark"))
 				return addCharacter(getCharacter("EddardStark"));
 			else
 				return removeCharacter("EddardStark");
 		},
 		end: 1094, // 18:14
 		onEnd: function() {
-			if (!!$("#EddardStark"))
+			if (!$("#EddardStark"))
 				removeCharacter("EddardStark");
 			else
 				addCharacter(getCharacter("EddardStark"));

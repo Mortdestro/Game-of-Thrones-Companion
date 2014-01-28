@@ -22,7 +22,12 @@
 
 			function setup() {
 				// Get form values //
-				var file = $("#fileinput").get(0).files[0];
+				var file;
+				if (!!$("#fileinput").get(0).files[0]) {
+					file = $("#fileinput").get(0).files[0];
+				} else {
+					file = "got.mp4";
+				}
 				season = $("#season").get(0).value;
 				localStorage.season = season;
 				episode = $("#episode").get(0).value;
@@ -33,7 +38,6 @@
 				$("#title").remove();
 
 				// Set up video for playing //
-				var objectURL = window.URL.createObjectURL(file);
 				var vid = document.createElement('video');
 				var source = document.createElement('source');
 				vid.appendChild(source);
@@ -41,7 +45,12 @@
 				vid.id = 'video';
 				vid.addEventListener("loadedmetadata", function() {return setup2(season, episode);});
 				vid.addEventListener("timeupdate", saveTime);
-				source.src = objectURL;
+				try {
+					var objectURL = window.URL.createObjectURL(file);
+					source.src = objectURL;
+				} catch (e) {
+					source.src = file;
+				}
 				source.type = 'video/mp4';
 				var map = document.getElementById('map');
 				document.getElementById('vid_div').insertBefore(vid, null);
@@ -59,9 +68,9 @@
 				height = $("#map").outerHeight();
 				width = $("#map").outerWidth();
 				$("#map").css('width', docWidth - 40 - $("#vid_div").outerWidth() + 'px');
-				$("#map_img").draggable("option", "containment", [left - 4642 * mapObject.currZoom + 450, top - 4642 * currZoom + 450, left, top]);
-				$("#map_img").css('left', (mapObject.currCoords.x * mapObject.currZoom - width / 2) * -1 + 'px');
-				$("#map_img").css('top', (mapObject.currCoords.y * mapObject.currZoom - height / 2) * -1 + 'px');
+				$("#map_img").draggable("option", "containment", [left - 4642 * mapObject.currZoom + 450, mapObject.top - 4642 * mapObject.currZoom + 450, mapObject.left, mapObject.top]);
+				$("#map_img").css('left', (mapObject.currCoords.x * mapObject.currZoom - mapObject.width / 2) * -1 + 'px');
+				$("#map_img").css('top', (mapObject.currCoords.y * mapObject.currZoom - mapObject.height / 2) * -1 + 'px');
 			}
 			
 			// Save the current time using HTML5 storage //
@@ -89,7 +98,7 @@
 	<body onload="init()" onresize="resize()">
 		<form id="form" action="javascript:setup();">
 			<label for="fileinput">Video file:</label>
-			<input id="fileinput" type="file" name="filechooser" size="10" accept="video/*" required></input><br />
+			<input id="fileinput" type="file" name="filechooser" size="10" accept="video/*"></input><br />
 			<label for="season">Season:</label>
 			<select id="season" name="season" required>
 				<option value=1>1</option>
