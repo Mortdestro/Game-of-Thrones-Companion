@@ -54,23 +54,23 @@ body {
 	left: 10px;
 	bottom: 10px;
 	right: 10px;
-	padding: 3px;
 	overflow: hidden;
 }
 
 #info-wrapper h3 {
 	margin: 0;
-	margin-bottom: 3px;
+	margin-bottom: 4px;
 	font-size: 20px;
+	height: 24px;
 }
 
 #info {
 	font-family: sans-serif;
-	font-size: larger;
+	font-size: 22px;
 	height: auto;
-    height: -webkit-calc(100% - 23px);
-    height: -moz-calc(100% - 23px);
-    height: calc(100% - 23px);
+    height: -webkit-calc(100% - 28px);
+    height: -moz-calc(100% - 28px);
+    height: calc(100% - 28px);
 	width: 5000px;
 	overflow: hidden;
 }
@@ -96,6 +96,7 @@ body {
 	margin: 0;
 	margin-right: 15px;
 	float: left;
+	height: 26px;
 }
 
 .char_img {

@@ -123,7 +123,7 @@ function Map(map_img, plotCoords, initCoords, initZoom, windowWidth, mapWidth, m
 
 	// Set position by coordinates or by location name
 	function setPosition(coords) {
-		if (!dragging) {
+		if (!this.dragging) {
 			currZoom = 1;
 			if (!coords.x) {
 				coords = getPosition(coords);

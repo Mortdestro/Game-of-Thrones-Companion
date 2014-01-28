@@ -6,10 +6,11 @@ var wrapperWidth;
 
 // Layout the info bar at the bottom
 function infoInit() {
-	infoTop = $("#info-wrapper").offset().top + 30;
+	// Top of wrapper plus 28 pixels (for label)
+	infoTop = $("#info-wrapper").offset().top + 28;
 	infoLeft = $("#info-wrapper").offset().left;
 	wrapperWidth = $("#info-wrapper").outerWidth();
-	infoWidth = 3;
+	infoWidth = 0;
 	i = 1;
 	$("#info").children(".character").each(function () {
 		infoWidth += parseInt($(this).outerWidth(true));
@@ -71,9 +72,17 @@ function addCharacter(character) {
 		charName = character.getElementsByTagName("name")[0].textContent;
 		
 		// Create a paragraph with the character's name
-		charDiv.append("<p/>").children("p").append(charName);
+		charDiv.append(jQuery("<p/>", {"id": charId + "_p"})).children("p").append(charName);
+		var imgHeight;
+		if ($("#info").height() > 90) {
+			imgHeight = "calc(100% - " + $("#" + charId + "_p").height() + "px)";
+		} else {
+			imgHeight = "100%";
+		}
+		console.log(imgHeight);
 		// Create an image, use the id as the source
 		var charImg = jQuery("<img/>", {"id": charId + "_img", "class": "char_img", "src": "character_images/" + charId + "_small.jpg"}).appendTo(charDiv);
+		charImg.css("height", imgHeight);
 		// Once the image is loaded
 		charImg.load(function () {
 			// Add the width of the character div to the info div
