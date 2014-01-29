@@ -19,19 +19,14 @@ body {
 }
 
 #map {
-	height: 64%;
 	position: absolute;
 	right: 10px;
 	overflow: hidden;
 }
 
 #map_img {
-	width: 2739px;
-	height: 2739px;
 	display: block;
 	position: absolute;
-	top: -2289px;
-	left: -222px;
 }
 
 #map_img:hover {
@@ -78,13 +73,12 @@ body {
 .link {
 	border: ridge 3px #999;
 	background-color: #555;
-	padding: 3px;
+	padding: 4px;
 	float: left;
 	height: 100%;
     height: -webkit-calc(100% - 12px);
     height: -moz-calc(100% - 12px);
     height: calc(100% - 12px);
-	width: auto;
 	margin-right: 10px;
 }
 
@@ -92,11 +86,12 @@ body {
 	cursor: pointer;
 }
 
-.link p {
+.link h4 {
 	margin: 0;
-	margin-right: 15px;
+	margin-right: 0px;
 	float: left;
 	height: 26px;
+	white-space: nowrap;
 }
 
 .link_img {

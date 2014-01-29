@@ -2,15 +2,18 @@ var mapObject;
 
 function mapInit() {
 	var map_img = $("#map_img");
+	var window = $("map");
 	var docWidth = $(document).outerWidth();
+	var docHeight = $(document).outerHeight();
 	var initZoom = .59;
-	// var initCoords = {x: 758, y: 4261};
-	var initCoords = {x: 1000, y: 1000};
+	var initCoords = {x: 758, y: 4261};
 	// Create the map
-	mapObject = new Map(map_img, null, initCoords, initZoom, docWidth * .45, 4642, 4642);
+	mapObject = new Map(map_img, window, null, initCoords, initZoom, docWidth * .45, docHeight * .64, 4642, 4642);
 }
 
-// Get the coordinates of important locations by name
+/**
+* Get the coordinates of important locations by name
+*/
 function getPosition(name) {
 	var coordinates;
 	if (name == "Winterfell") {
@@ -27,7 +30,9 @@ function getPosition(name) {
 	return coordinates;
 }
 
-// Move the map to the coordinates of the show's current location
+/**
+* Move the map to the coordinates of the show's current location
+*/
 function currentLocation() {
 	if (!!mapObject) {
 		if (!!mapObject.plotCoords) {
@@ -38,18 +43,29 @@ function currentLocation() {
 	}
 }
 
-function Map(map_img, plotCoords, initCoords, initZoom, windowWidth, mapWidth, mapHeight) {
+/**
+* A draggable, zoomable map
+* 
+* param map_img: A jQuery object pointing to a map image to be dragged
+* param window: A jQuery object pointing to a "window" to the map
+*/
+function Map(map_img, window, plotCoords, initCoords, initZoom, windowWidth, windowHeight, mapWidth, mapHeight) {
 
+	// Variables
 	this.map_img = map_img;
+	this.window = window;
 	this.plotCoords = plotCoords;
 	this.currCoords = {x: initCoords.x, y: initCoords.y};
 	this.initCoords = {x: initCoords.x, y: initCoords.y};
 	this.currZoom = this.initZoom = initZoom;
 	this.mapWidth = mapWidth;
 	this.mapHeight = mapHeight;
+	this.windowWidth = windowWidth;
+	this.windowHeight = windowHeight;
 	this.dragging = 0;
 	var parent = this;
 
+	// Functions
 	this.resize = resize;
 	this.setPosition = setPosition;
 	this.resetPosition = resetPosition;
@@ -61,31 +77,31 @@ function Map(map_img, plotCoords, initCoords, initZoom, windowWidth, mapWidth, m
 	this.map_img.draggable({
 		addClasses: true,
 		start: startDrag,
-		stop: endDrag,
-		containment: [
-			this.windowLeft - (this.mapWidth * this.currZoom) + this.windowWidth,
-			this.windowTop - (this.mapHeight * this.currZoom) + this.windowHeight,
-			this.windowLeft,
-			this.windowTop
-		]
+		stop: endDrag
 	});
 
-	this.resize(windowWidth);
+	this.resize(this.windowWidth, this.windowHeight);
+	this.setZoom(this.currZoom);
 
-	// Adjust properties for when the window is resized
-	function resize(windowWidth) {
+	/**
+	* Adjust properties for when the window is resized
+	*/
+	function resize(newWidth, newHeight) {
 		// Set map window width
-		$("#map").css('width', windowWidth + 'px');
+		parent.windowWidth = newWidth;
+		parent.window.css('width', parent.windowWidth + 'px');
+		parent.windowHeight = newHeight;
+		parent.window.css('height', parent.windowHeight + 'px');
 
 		// Store map window information
-		this.windowLeft = $("#map").offset().left;
-		this.windowTop = $("#map").offset().top;
-		this.windowWidth = $("#map").outerWidth();
-		this.windowHeight = $("#map").outerHeight();
+		parent.windowLeft = $("#map").offset().left;
+		parent.windowTop = $("#map").offset().top;
+		parent.windowWidth = $("#map").outerWidth();
+		parent.windowHeight = $("#map").outerHeight();
 
 		// Adjust the actual map
-		this.map_img.css('left', (this.currCoords.x * this.currZoom - this.windowWidth / 2) * -1 + 'px');
-		this.map_img.css('top', (this.currCoords.y * this.currZoom - this.windowHeight / 2) * -1 + 'px');
+		parent.map_img.css('left', (parent.currCoords.x * parent.currZoom - parent.windowWidth / 2) * -1 + 'px');
+		parent.map_img.css('top', (parent.currCoords.y * parent.currZoom - parent.windowHeight / 2) * -1 + 'px');
 		
 		// Readjust for borders
 		if (parseInt(parent.map_img.css('left')) > 0) // left
@@ -121,7 +137,9 @@ function Map(map_img, plotCoords, initCoords, initZoom, windowWidth, mapWidth, m
 		// TODO: Fill in functionality
 	}
 
-	// Set position by coordinates or by location name
+	/**
+	* Set position by coordinates or by location name
+	*/
 	function setPosition(coords) {
 		if (!this.dragging) {
 			currZoom = 1;
@@ -137,7 +155,9 @@ function Map(map_img, plotCoords, initCoords, initZoom, windowWidth, mapWidth, m
 		plotCoords = coords;
 	}
 
-	// Reset position to credits
+	/**
+	* Reset position to credits
+	*/
 	function resetPosition() {
 		if (!parent.dragging) {
 			$('#map_img').animate({
@@ -154,7 +174,9 @@ function Map(map_img, plotCoords, initCoords, initZoom, windowWidth, mapWidth, m
 		parent.plotCoords = null;
 	}
 
-	// Set the zoom to any given zoom level
+	/**
+	* Set the zoom to any given zoom level
+	*/
 	function setZoom(zoom){
 		parent.map_img.css('width', parent.mapHeight * zoom);
 		parent.map_img.css('height', parent.mapHeight * zoom);
@@ -168,7 +190,9 @@ function Map(map_img, plotCoords, initCoords, initZoom, windowWidth, mapWidth, m
 		parent.resetContainment();
 	}
 
-	// Handle zoom stuff
+	/**
+	* Handle zoom event
+	*/
 	function zoom(e) {
 		e.preventDefault();
 
@@ -208,7 +232,9 @@ function Map(map_img, plotCoords, initCoords, initZoom, windowWidth, mapWidth, m
 			parent.map_img.css('top', -1 * parent.mapHeight * parent.currZoom + parent.windowHeight + "px");
 	}
 	
-	// Set containment based on current variables (call when adjusting)
+	/**
+	* Set containment based on current variables (call when adjusting)
+	*/
 	function resetContainment() {
 		if (parent.mapWidth * parent.currZoom > parent.windowWidth) {
 			// if the map is wider than the map window

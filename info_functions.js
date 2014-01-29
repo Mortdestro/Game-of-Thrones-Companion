@@ -1,49 +1,69 @@
-var characters = new Array();
-var infoTop;
-var infoLeft;
-var infoWidth;
-var wrapperWidth;
-
-// Layout the info bar at the bottom
+/**
+* Layout the info bar at the bottom
+*/
 function infoInit() {
-	// Top of wrapper plus 28 pixels (for label)
-	infoTop = $("#info-wrapper").offset().top + 28;
-	infoLeft = $("#info-wrapper").offset().left;
-	wrapperWidth = $("#info-wrapper").outerWidth();
-	infoWidth = 0;
-	i = 1;
-	$("#info").children(".character").each(function () {
-		infoWidth += parseInt($(this).outerWidth(true));
-		console.log(i + ": " + $(this).outerWidth(true));
-		i++;
-	});
-	if (infoWidth < 0) {
-		infoWidth = 0;
-	}
-	$("#info").css("width", infoWidth + "px");
-	leftMost = wrapperWidth - infoWidth < 0 ? infoLeft - infoWidth + wrapperWidth : infoLeft;
-	rightMost = wrapperWidth - infoWidth < 0 ? infoLeft : infoLeft - infoWidth + wrapperWidth;
-	$("#info").draggable({addClasses: true, start: function(event, ui) {
-        $(this).addClass('noclick');
-    }, containment: [leftMost, infoTop, rightMost, infoTop]});
+	wrapper = $("#info-wrapper");
+	slider = $("#info");
+	infoBar = new InfoBar(wrapper, slider);
 }
 
-function InfoBar() {
-	this.links = new Array();
+function InfoBar(wrapperObj, sliderObj) {	
+	// Variables for later abstraction
+	this.width;
+	this.height;
+	this.horizontal = true;
 	
-	// Add a link onto the info list at the bottom
-	// Param datum - XML Object pointing to a particular datum
+	this.wrapperObj = wrapperObj;
+	this.sliderObj = sliderObj;
+	var parent = this;
+
+	this.addLink = addLink;
+	this.removeLink = removeLink;
+	this.resize = resize;
+
+	this.resize();
+
+	function resize() {
+		// TODO: change 28 to a variable
+		var sliderTop = parent.wrapperObj.offset().top + 28;
+		var sliderLeft = parent.wrapperObj.offset().left;
+		var wrapperWidth = parent.wrapperObj.outerWidth();
+		var sliderWidth = 0;
+		// TODO: Adjust width of each link, then width of slider
+		parent.sliderObj.children(".link").each(function () {
+			
+		});
+		i = 1;
+		parent.sliderObj.children(".link").each(function () {
+			sliderWidth += parseInt($(this).outerWidth(true));
+			console.log(i + ": " + $(this).outerWidth(true));
+			i++;
+		});
+		console.log("sliderWidth: " + sliderWidth);
+		if (sliderWidth < 0) {
+			sliderWidth = 0;
+		}
+		
+		parent.sliderObj.css("width", sliderWidth + "px");
+		var leftmost = wrapperWidth - sliderWidth < 0 ? sliderLeft - sliderWidth + wrapperWidth : sliderLeft;
+		var rightmost = wrapperWidth - sliderWidth < 0 ? sliderLeft : sliderLeft - sliderWidth + wrapperWidth;
+		$("#info").draggable({addClasses: true, start: function(event, ui) {
+			$(this).addClass('noclick');
+		}, containment: [leftmost, sliderTop, rightmost, sliderTop]});
+	}
+
+	/**
+	* Add a link onto the info list at the bottom
+	* param datum: XML Object pointing to a particular datum
+	*/
 	function addLink(datum) {
-		if (!!(link.getElementsByTagName("id"))) {
-			// If the datum has an id (is in the XML correctly)
-			// Add the datum to the array
-			index = this.data.push(datum) - 1;
+		if (!!(datum.getElementsByTagName("id"))) {
 			// Get the id
 			datId = datum.getElementsByTagName("id")[0].textContent;
-			// Temporarily increase the width of the info div (fixes a bug)
-			$("#info").css("width", "+=1000px");
+			/*/ Temporarily increase the width of the info div (fixes a bug)
+			$("#info").css("width", "+=1000px");*/
 			// Add a div for the link
-			var linkDiv = jQuery("<div/>", {"id": datId, "class": "link"}).appendTo("#info");
+			var linkDiv = jQuery("<div/>", {"id": datId, "class": "link"}).appendTo(parent.sliderObj);
 			// Add the click functionality
 			linkDiv.click(function() {
 				if ($(this).parent().hasClass('noclick')) {
@@ -58,26 +78,28 @@ function InfoBar() {
 				}
 			});
 			
-			// Get the name TODO: Iterate through list of names //
+			// Get the name 
+			// TODO: Iterate through list of names
 			datName = datum.getElementsByTagName("name")[0].textContent;
 			
 			// Create a paragraph with the character's name
-			charDiv.append(jQuery("<p/>", {"id": charId + "_p"})).children("p").append(charName);
+			linkDiv.append(jQuery("<h4/>", {"id": datId + "_h4"})).children("h4").append(datName);
 			var imgHeight;
-			if ($("#info").height() > 90) {
-				imgHeight = "calc(100% - " + $("#" + charId + "_p").height() + "px)";
+			if (parent.sliderObj.height() > 90) {
+				imgHeight = "calc(100% - " + $("#" + datId + "_h4").height() + "px)";
 			} else {
 				imgHeight = "100%";
 			}
 			console.log(imgHeight);
 			// Create an image, use the id as the source
-			var charImg = jQuery("<img/>", {"id": charId + "_img", "class": "char_img", "src": "character_images/" + charId + "_small.jpg"}).appendTo(charDiv);
-			charImg.css("height", imgHeight);
+			var linkImg = jQuery("<img/>", {"id": datId + "_img", "class": "link_img", "src": "character_images/" + datId + "_small.jpg"}).appendTo(linkDiv);
+			linkImg.css("height", imgHeight);
 			// Once the image is loaded
-			charImg.load(function () {
-				// Add the width of the character div to the info div
-				$("#info").css("width", "+=" + charDiv.outerWidth(true) + "px");
-				// Take off the 1000 extra pixels
+			linkImg.load(function () {
+				/*/ Add the width of the character div to the info div
+				$("#info").css("width", "+=" + linkDiv.outerWidth(true) + "px");*/
+				parent.resize();
+				/*/ Take off the 1000 extra pixels
 				$("#info").css("width", "-=1000px");
 				// Store the new width
 				infoWidth = parseInt($("#info").css("width"));
@@ -85,12 +107,20 @@ function InfoBar() {
 				leftMost = wrapperWidth - infoWidth < 0 ? infoLeft - infoWidth + wrapperWidth : infoLeft;
 				rightMost = wrapperWidth - infoWidth < 0 ? infoLeft : infoLeft - infoWidth + wrapperWidth;
 				// Set the new drag containment
-				$("#info").draggable("option", "containment", [leftMost, infoTop, rightMost, infoTop]);
+				$("#info").draggable("option", "containment", [leftMost, infoTop, rightMost, infoTop]);*/
 			});
 		}
 	}
+
+	function removeLink(id) {
+		$("#" + id).remove();
+		parent.resize();
+	}
 }
-// Find a character in the XML document
+
+/**
+* Find a character in the XML document
+*/
 function getCharacter(id) {
 	var characters = xmlDoc.getElementsByTagName("characters")[0].getElementsByTagName("character");
 	// Note: iterates through local characters (in XML), not global array
@@ -104,8 +134,3 @@ function getCharacter(id) {
 	}
 }
 
-
-
-function removeCharacter(id) {
-	$("#" + id).remove();
-}

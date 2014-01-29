@@ -18,7 +18,7 @@
 				mapInit();
 				infoInit();
 				loadXMLDoc("data.xml");
-				addCharacter(getCharacter("EddardStark"));
+				infoBar.addLink(getCharacter("EddardStark"));
 			}	
 
 			function setup() {
@@ -83,14 +83,14 @@
 			
 			// Handle resize //
 			function resize() {
+				docWidth = $(document).outerWidth();
+				docHeight = $(document).outerHeight();
 				if (!!document.getElementById("video")) {
 					// If the video has been loaded
-					docWidth = $(document).outerWidth();
-					mapObject.resize(docWidth - 40 - $("#video").outerWidth());
+					mapObject.resize(docWidth - 40 - $("#video").outerWidth(), docHeight * .64);
 				} else {
 					// If the video hasn't been loaded
-					docWidth = $(document).outerWidth();
-					mapObject.resize(docWidth * .45);
+					mapObject.resize(docWidth * .45, docHeight * .64);
 				}
 				infoInit();
 			}
