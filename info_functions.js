@@ -29,17 +29,33 @@ function InfoBar(wrapperObj, sliderObj) {
 		var sliderLeft = parent.wrapperObj.offset().left;
 		var wrapperWidth = parent.wrapperObj.outerWidth();
 		var sliderWidth = 0;
-		// TODO: Adjust width of each link, then width of slider
+
+		// Adjust width of each link
 		parent.sliderObj.children(".link").each(function () {
+			var datId = $(this).attr("id");
+			var h4 = $("#" + datId + "_h4");
+			var img = $("#" + datId + "_img");
 			
+			var imgHeight;
+			var linkWidth;
+			if (parent.sliderObj.height() > 90) {
+				imgHeight = "calc(100% - " + h4.height() + "px)";
+				linkWidth = Math.max(h4.outerWidth(true), img.outerWidth(true));
+			} else {
+				imgHeight = "100%";
+				linkWidth = h4.outerWidth(true) + img.outerWidth(true);
+			}
+			
+			img.css("height", imgHeight);
+			$(this).css("width", linkWidth + "px");
 		});
 		i = 1;
 		parent.sliderObj.children(".link").each(function () {
 			sliderWidth += parseInt($(this).outerWidth(true));
-			console.log(i + ": " + $(this).outerWidth(true));
+			// console.log(i + ": " + $(this).outerWidth(true));
 			i++;
 		});
-		console.log("sliderWidth: " + sliderWidth);
+		// console.log("sliderWidth: " + sliderWidth);
 		if (sliderWidth < 0) {
 			sliderWidth = 0;
 		}
@@ -59,7 +75,7 @@ function InfoBar(wrapperObj, sliderObj) {
 	function addLink(datum) {
 		if (!!(datum.getElementsByTagName("id"))) {
 			// Get the id
-			datId = datum.getElementsByTagName("id")[0].textContent;
+			var datId = datum.getElementsByTagName("id")[0].textContent;
 			/*/ Temporarily increase the width of the info div (fixes a bug)
 			$("#info").css("width", "+=1000px");*/
 			// Add a div for the link
@@ -84,30 +100,11 @@ function InfoBar(wrapperObj, sliderObj) {
 			
 			// Create a paragraph with the character's name
 			linkDiv.append(jQuery("<h4/>", {"id": datId + "_h4"})).children("h4").append(datName);
-			var imgHeight;
-			if (parent.sliderObj.height() > 90) {
-				imgHeight = "calc(100% - " + $("#" + datId + "_h4").height() + "px)";
-			} else {
-				imgHeight = "100%";
-			}
-			console.log(imgHeight);
 			// Create an image, use the id as the source
 			var linkImg = jQuery("<img/>", {"id": datId + "_img", "class": "link_img", "src": "character_images/" + datId + "_small.jpg"}).appendTo(linkDiv);
-			linkImg.css("height", imgHeight);
 			// Once the image is loaded
 			linkImg.load(function () {
-				/*/ Add the width of the character div to the info div
-				$("#info").css("width", "+=" + linkDiv.outerWidth(true) + "px");*/
 				parent.resize();
-				/*/ Take off the 1000 extra pixels
-				$("#info").css("width", "-=1000px");
-				// Store the new width
-				infoWidth = parseInt($("#info").css("width"));
-				// Determine the new bounds of info bar dragging
-				leftMost = wrapperWidth - infoWidth < 0 ? infoLeft - infoWidth + wrapperWidth : infoLeft;
-				rightMost = wrapperWidth - infoWidth < 0 ? infoLeft : infoLeft - infoWidth + wrapperWidth;
-				// Set the new drag containment
-				$("#info").draggable("option", "containment", [leftMost, infoTop, rightMost, infoTop]);*/
 			});
 		}
 	}
@@ -128,7 +125,7 @@ function getCharacter(id) {
 		character = characters[i];
 		charId = character.getElementsByTagName("id")[0].textContent;
 		if (charId == id) {
-			console.log("Character: " + charId);
+			// console.log("Character: " + charId);
 			return character;
 		}
 	}

@@ -2,7 +2,7 @@ var mapObject;
 
 function mapInit() {
 	var map_img = $("#map_img");
-	var window = $("map");
+	var window = $("#map");
 	var docWidth = $(document).outerWidth();
 	var docHeight = $(document).outerHeight();
 	var initZoom = .59;
@@ -128,7 +128,7 @@ function Map(map_img, window, plotCoords, initCoords, initZoom, windowWidth, win
 		// Update currCoords with the new coordinates
 		parent.currCoords.x = (parseInt(parent.map_img.css('left')) * -1 + parent.windowWidth / 2) / parent.currZoom;
 		parent.currCoords.y = (parseInt(parent.map_img.css('top')) * -1 + parent.windowHeight / 2) / parent.currZoom;
-		console.log("Current coordinates: (" + parent.currCoords.x + ", " + parent.currCoords.y + ")");
+		// console.log("Current coordinates: (" + parent.currCoords.x + ", " + parent.currCoords.y + ")");
 		parent.dragging = 0;
 	}
 
@@ -180,12 +180,6 @@ function Map(map_img, window, plotCoords, initCoords, initZoom, windowWidth, win
 	function setZoom(zoom){
 		parent.map_img.css('width', parent.mapHeight * zoom);
 		parent.map_img.css('height', parent.mapHeight * zoom);
-/* 		$("#map_img").draggable("option", "containment", [
-			parent.windowLeft - parent.mapHeight * zoom + parent.windowWidth,
-			parent.windowTop - parent.mapHeight * zoom + parent.windowHeight,
-			parent.windowLeft,
-			parent.windowTop
-		]); */
 		parent.currZoom = zoom;
 		parent.resetContainment();
 	}
