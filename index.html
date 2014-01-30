@@ -18,7 +18,7 @@
 				mapInit();
 				infoInit();
 				loadXMLDoc("data.xml");
-				infoBar.addLink(getCharacter("EddardStark"));
+				// infoBar.addLink(getCharacter("EddardStark"));
 			}	
 
 			function setup() {
@@ -29,6 +29,13 @@
 				} else {
 					file = "got.mp4";
 				}
+
+				try {
+					file = window.URL.createObjectURL(file);
+				} catch (e) {
+					console.log("No file selected");
+				}
+
 				season = $("#season").get(0).value;
 				localStorage.season = season;
 				episode = $("#episode").get(0).value;
@@ -41,36 +48,15 @@
 				// Set up video for playing //
 				var vid = jQuery('<video/>', {'id': 'video', 'controls': true});
 				$('#vid_div').append(vid);
-				var source = jQuery('<source/>', {'src': 'got.mp4', 'type': 'video/mp4'});
+				var source = jQuery('<source/>', {'src': file, 'type': 'video/mp4'});
 				$('#video').append(source);
-				vid.on("loadedmetadata", function() {return setup2(season, episode);});
+				vid.on("loadedmetadata", resize);
 				vid.on("timeupdate", saveTime);
-				try {
-					var objectURL = window.URL.createObjectURL(file);
-					source.src = objectURL;
-				} catch (e) {
-					console.log("File: " + file);
-					source.src = file;
-				}
-				source.type = 'video/mp4';
-				var map = document.getElementById('map');
+				vid.resizable();
 
 				// Add Popcorn functionality //
 				var popcorn = Popcorn( "#video" );
 				doPops(popcorn, season, episode);
-			}
-			
-			function setup2(season, episode) {				
-				// Change map to adjust with video //
-				docWidth = $(document).outerWidth();
-				var top = $("#map").offset().top;
-				var left = $("#map").offset().left;
-				height = $("#map").outerHeight();
-				width = $("#map").outerWidth();
-				$("#map").css('width', docWidth - 40 - $("#vid_div").outerWidth() + 'px');
-				$("#map_img").draggable("option", "containment", [left - 4642 * mapObject.currZoom + 450, mapObject.top - 4642 * mapObject.currZoom + 450, mapObject.left, mapObject.top]);
-				$("#map_img").css('left', (mapObject.currCoords.x * mapObject.currZoom - mapObject.width / 2) * -1 + 'px');
-				$("#map_img").css('top', (mapObject.currCoords.y * mapObject.currZoom - mapObject.height / 2) * -1 + 'px');
 			}
 			
 			// Save the current time using HTML5 storage //

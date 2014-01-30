@@ -2,7 +2,7 @@
 	<head>
 		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 		<script src="XMLParse.js"></script>
-		<script src="character_stuff.js"></script>
+		<script src="info_functions.js"></script>
 		<script src="encyclopedia.js"></script>
 		<link href="style2.css" rel="stylesheet" type="text/css" />
 		<script>
@@ -11,7 +11,7 @@
 			var params = new Array();
 
 			function init() {
-				loadXMLDoc("characters.xml");
+				loadXMLDoc("data.xml");
 				querySearch();
 				charId = params["id"];
 				season = parseInt(localStorage.season);

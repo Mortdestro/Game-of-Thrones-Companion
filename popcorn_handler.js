@@ -56,16 +56,16 @@ function winterIsComing(pop) {
 		start: 593, // 9:53
 		onStart: function() {
 			if (!!$("#EddardStark"))
-				return addCharacter(getCharacter("EddardStark"));
+				return infoBar.addLink(getCharacter("EddardStark"));
 			else
-				return removeCharacter("EddardStark");
+				return infoBar.removeLink("EddardStark");
 		},
 		end: 1094, // 18:14
 		onEnd: function() {
 			if (!$("#EddardStark"))
-				removeCharacter("EddardStark");
+				infoBar.removeLink("EddardStark");
 			else
-				addCharacter(getCharacter("EddardStark"));
+				infoBar.addLink(getCharacter("EddardStark"));
 		}
 	});
 
