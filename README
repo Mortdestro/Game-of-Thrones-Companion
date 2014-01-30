@@ -1,5 +1,5 @@
 ############################################
-## Game of Thrones Companion Guide v0.1.0
+## Game of Thrones Companion Guide v0.1.1
 ############################################
 
 ################
@@ -49,6 +49,7 @@ Features
    - Pauses video when links are clicked
  - Encyclopedia of CLFs
    - Updates all information according to user's location in the show
+   - Links to other pages
 
    
 ################

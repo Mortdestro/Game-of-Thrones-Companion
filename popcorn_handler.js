@@ -55,14 +55,14 @@ function winterIsComing(pop) {
 	pop.code({
 		start: 593, // 9:53
 		onStart: function() {
-			if (!!$("#EddardStark"))
+			if (!$("#EddardStark").length)
 				return infoBar.addLink(getCharacter("EddardStark"));
 			else
 				return infoBar.removeLink("EddardStark");
 		},
 		end: 1094, // 18:14
 		onEnd: function() {
-			if (!$("#EddardStark"))
+			if (!!$("#EddardStark").length)
 				infoBar.removeLink("EddardStark");
 			else
 				infoBar.addLink(getCharacter("EddardStark"));
@@ -71,9 +71,7 @@ function winterIsComing(pop) {
 
 	pop.code({
 		start: 1094, // 18:14
-		onStart: function() {
-			return mapObject.setPosition("King's Landing");
-		}
+		onStart: function() {return mapObject.setPosition("King's Landing");}
 	});
 
 	pop.code({
