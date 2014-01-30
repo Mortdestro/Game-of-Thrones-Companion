@@ -141,16 +141,27 @@ function Map(map_img, window, plotCoords, initCoords, initZoom, windowWidth, win
 	* Set position by coordinates or by location name
 	*/
 	function setPosition(coords) {
-		if (!this.dragging) {
+		if (!coords.x) {
+			coords = getPosition(coords);
+		}
+		if (!parent.dragging) {
+			// Readjust for borders //
+			// New variable to actually move to; other kept in case of readjustment
+			var practCoords = coords;
+			if (practCoords.x < 0) // left
+				practCoords.x = 0;
+			if (practCoords.y < 0) // top
+				practCoords.y = 0;
+			if (practCoords.x > parent.mapWidth - parent.windowWidth / 2 / parent.currZoom) // right
+				practCoords.x = parent.mapWidth - parent.windowWidth / 2 / parent.currZoom;
+			if (practCoords.y > parent.mapHeight - parent.windowHeight / 2 / parent.currZoom) // down
+				practCoords.y = parent.mapHeight - parent.windowHeight / 2 / parent.currZoom;
+
+
 			currZoom = 1;
-			if (!coords.x) {
-				coords = getPosition(coords);
-			}
-			$('#map_img').animate({left: (coords.x - parent.windowWidth / 2) * -1 + 'px', top: (coords.y - parent.windowHeight / 2) * -1 + 'px', height: parent.mapHeight + 'px', width: parent.mapWidth + 'px'}, 1000);
+			$('#map_img').animate({left: (practCoords.x - parent.windowWidth / 2) * -1 + 'px', top: (practCoords.y - parent.windowHeight / 2) * -1 + 'px', height: parent.mapHeight + 'px', width: parent.mapWidth + 'px'}, 1000);
 			parent.currCoords.x = coords.x;
 			parent.currCoords.y = coords.y;
-			//$("#map_img").draggable("option", "containment", [parent.windowLeft - 4642 + parent.windowWidth, parent.windowTop - 4642 + parent.windowHeight, parent.windowLeft, parent.windowTop]);
-			parent.resetContainment();
 		}
 		plotCoords = coords;
 	}
@@ -160,16 +171,27 @@ function Map(map_img, window, plotCoords, initCoords, initZoom, windowWidth, win
 	*/
 	function resetPosition() {
 		if (!parent.dragging) {
+			// Readjust for borders //
+			// New variable to actually move to; other kept in case of readjustment
+			var practCoords = parent.initCoords;
+			if (practCoords.x < 0) // left
+				practCoords.x = 0;
+			if (practCoords.y < 0) // top
+				practCoords.y = 0;
+			if (practCoords.x > parent.mapWidth - parent.windowWidth / 2 / parent.currZoom) // right
+				practCoords.x = parent.mapWidth - parent.windowWidth / 2 / parent.currZoom;
+			if (practCoords.y > parent.mapHeight - parent.windowHeight / 2 / parent.currZoom) // down
+				practCoords.y = parent.mapHeight - parent.windowHeight / 2 / parent.currZoom;
+			
 			$('#map_img').animate({
-				left: (parent.initCoords.x * parent.initZoom - parent.windowWidth / 2) * -1 + 'px',
-				top: (parent.initCoords.y * parent.initZoom - parent.windowHeight / 2) * -1 + 'px',
+				left: (practCoords.x * parent.initZoom - parent.windowWidth / 2) * -1 + 'px',
+				top: (practCoords.y * parent.initZoom - parent.windowHeight / 2) * -1 + 'px',
 				height: parent.mapHeight * parent.initZoom + 'px',
 				width: parent.mapWidth * parent.initZoom + 'px'
 			}, 1000);
 			parent.currZoom = parent.initZoom;
 			parent.currCoords.x = parent.initCoords.x;
 			parent.currCoords.y = parent.initCoords.y;
-			parent.resetContainment();
 		}
 		parent.plotCoords = null;
 	}

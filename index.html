@@ -18,7 +18,7 @@
 				mapInit();
 				infoInit();
 				loadXMLDoc("data.xml");
-				infoBar.addLink(getCharacter("EddardStark"));
+				// infoBar.addLink(getCharacter("EddardStark"));
 			}	
 
 			function setup() {
@@ -43,7 +43,7 @@
 				$('#vid_div').append(vid);
 				var source = jQuery('<source/>', {'src': 'got.mp4', 'type': 'video/mp4'});
 				$('#video').append(source);
-				vid.on("loadedmetadata", function() {return setup2(season, episode);});
+				vid.on("loadedmetadata", resize);
 				vid.on("timeupdate", saveTime);
 				try {
 					var objectURL = window.URL.createObjectURL(file);
@@ -58,19 +58,6 @@
 				// Add Popcorn functionality //
 				var popcorn = Popcorn( "#video" );
 				doPops(popcorn, season, episode);
-			}
-			
-			function setup2(season, episode) {				
-				// Change map to adjust with video //
-				docWidth = $(document).outerWidth();
-				var top = $("#map").offset().top;
-				var left = $("#map").offset().left;
-				height = $("#map").outerHeight();
-				width = $("#map").outerWidth();
-				$("#map").css('width', docWidth - 40 - $("#vid_div").outerWidth() + 'px');
-				$("#map_img").draggable("option", "containment", [left - 4642 * mapObject.currZoom + 450, mapObject.top - 4642 * mapObject.currZoom + 450, mapObject.left, mapObject.top]);
-				$("#map_img").css('left', (mapObject.currCoords.x * mapObject.currZoom - mapObject.width / 2) * -1 + 'px');
-				$("#map_img").css('top', (mapObject.currCoords.y * mapObject.currZoom - mapObject.height / 2) * -1 + 'px');
 			}
 			
 			// Save the current time using HTML5 storage //
@@ -91,7 +78,7 @@
 					// If the video hasn't been loaded
 					mapObject.resize(docWidth * .45, docHeight * .64);
 				}
-				infoInit();
+				infoBar.resize();
 			}
 		</script>
 	</head>
