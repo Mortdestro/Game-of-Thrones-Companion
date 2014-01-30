@@ -39,22 +39,21 @@
 				$("#title").remove();
 
 				// Set up video for playing //
-				var vid = document.createElement('video');
-				var source = document.createElement('source');
-				vid.appendChild(source);
-				vid.controls = true;
-				vid.id = 'video';
-				vid.addEventListener("loadedmetadata", function() {return setup2(season, episode);});
-				vid.addEventListener("timeupdate", saveTime);
+				var vid = jQuery('<video/>', {'id': 'video', 'controls': true});
+				$('#vid_div').append(vid);
+				var source = jQuery('<source/>', {'src': 'got.mp4', 'type': 'video/mp4'});
+				$('#video').append(source);
+				vid.on("loadedmetadata", function() {return setup2(season, episode);});
+				vid.on("timeupdate", saveTime);
 				try {
 					var objectURL = window.URL.createObjectURL(file);
 					source.src = objectURL;
 				} catch (e) {
+					console.log("File: " + file);
 					source.src = file;
 				}
 				source.type = 'video/mp4';
 				var map = document.getElementById('map');
-				document.getElementById('vid_div').insertBefore(vid, null);
 
 				// Add Popcorn functionality //
 				var popcorn = Popcorn( "#video" );

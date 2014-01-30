@@ -215,15 +215,18 @@ function Map(map_img, window, plotCoords, initCoords, initZoom, windowWidth, win
 		parent.map_img.css('left', (parent.currCoords.x * parent.currZoom - parent.windowWidth / 2) * -1 + 'px');
 		parent.map_img.css('top', (parent.currCoords.y * parent.currZoom - parent.windowHeight / 2) * -1 + 'px');
 
-		// Unless we're at the border
+		
+		// Unless it's at the border
 		if (parseInt(parent.map_img.css('left')) > 0) // left
 			parent.map_img.css('left', "0px");
-		if (parseInt(parent.map_img.css('top')) > 0) // top
-			parent.map_img.css('top', "0px");
 		if (parseInt(parent.map_img.css('left')) < -1 * parent.mapWidth * parent.currZoom + parent.windowWidth) // right
 			parent.map_img.css('left', -1 * parent.mapWidth * parent.currZoom + parent.windowWidth + "px");
+
+		if (parseInt(parent.map_img.css('top')) > 0) // top
+			parent.map_img.css('top', "0px");
 		if (parseInt(parent.map_img.css('top')) < -1 * parent.mapHeight * parent.currZoom + parent.windowHeight) // bottom
 			parent.map_img.css('top', -1 * parent.mapHeight * parent.currZoom + parent.windowHeight + "px");
+
 	}
 	
 	/**
