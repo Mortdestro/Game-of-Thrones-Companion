@@ -47,7 +47,7 @@
 
 				// Set up video for playing //
 				var vid = jQuery('<video/>', {'id': 'video', 'controls': true});
-				$('#vid_div').append(vid);
+				vid.insertBefore($('#map'));
 				var source = jQuery('<source/>', {'src': file, 'type': 'video/mp4'});
 				$('#video').append(source);
 				vid.on("loadedmetadata", resize);
@@ -70,7 +70,7 @@
 			function resize() {
 				docWidth = $(document).outerWidth();
 				docHeight = $(document).outerHeight();
-				if (!!document.getElementById("video")) {
+				if (!!$("#video").length) {
 					// If the video has been loaded
 					mapObject.resize(docWidth - 40 - $("#video").outerWidth(), docHeight * .64);
 				} else {
@@ -96,7 +96,6 @@
 			<input type="submit" id="submit" name="submit" value="Go"></input>
 		</form>
 		<div id='content'>
-			<div id='vid_div'></div>
 			<div id='map'>
 				<img id="map_img" src="speculative_map.jpg" />
 				<input id="plot_button" type="button" value="Current Location" onclick="currentLocation()" />

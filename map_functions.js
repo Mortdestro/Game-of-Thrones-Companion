@@ -94,15 +94,18 @@ function Map(map_img, window, plotCoords, initCoords, initZoom, windowWidth, win
 		parent.window.css('height', parent.windowHeight + 'px');
 
 		// Store map window information
-		parent.windowLeft = $("#map").offset().left;
-		parent.windowTop = $("#map").offset().top;
-		parent.windowWidth = $("#map").outerWidth();
-		parent.windowHeight = $("#map").outerHeight();
+		parent.windowLeft = parent.window.offset().left;
+		parent.windowTop = parent.window.offset().top;
+		parent.windowWidth = parent.window.outerWidth();
+		parent.windowHeight = parent.window.outerHeight();
 
 		// Adjust the actual map
 		parent.map_img.css('left', (parent.currCoords.x * parent.currZoom - parent.windowWidth / 2) * -1 + 'px');
 		parent.map_img.css('top', (parent.currCoords.y * parent.currZoom - parent.windowHeight / 2) * -1 + 'px');
-		
+
+		console.log((parent.currCoords.x * parent.currZoom - parent.windowWidth / 2) * -1);
+		console.log((parent.currCoords.y * parent.currZoom - parent.windowHeight / 2) * -1);
+
 		// Readjust for borders
 		if (parseInt(parent.map_img.css('left')) > 0) // left
 			parent.map_img.css('left', "0px");
@@ -113,9 +116,11 @@ function Map(map_img, window, plotCoords, initCoords, initZoom, windowWidth, win
 		if (parseInt(parent.map_img.css('top')) < -1 * parent.mapHeight * parent.currZoom + parent.windowHeight) // down
 			parent.map_img.css('top', -1 * parent.mapHeight * parent.currZoom + parent.windowHeight + "px");
 
+		console.log("Coords (resize): " + parent.currCoords.x + ", " + parent.currCoords.y);
+
 		parent.resetContainment();
 	}
-	
+
 	//Set zooming function
 	this.map_img.mousewheel(this.zoom);
 
@@ -158,12 +163,13 @@ function Map(map_img, window, plotCoords, initCoords, initZoom, windowWidth, win
 				practCoords.y = parent.mapHeight - parent.windowHeight / 2 / parent.currZoom;
 
 
-			currZoom = 1;
-			$('#map_img').animate({left: (practCoords.x - parent.windowWidth / 2) * -1 + 'px', top: (practCoords.y - parent.windowHeight / 2) * -1 + 'px', height: parent.mapHeight + 'px', width: parent.mapWidth + 'px'}, 1000);
+			parent.currZoom = 1;
+			$('#map_img').animate({left: (coords.x - parent.windowWidth / 2) * -1 + 'px', top: (coords.y - parent.windowHeight / 2) * -1 + 'px', height: parent.mapHeight + 'px', width: parent.mapWidth + 'px'}, 1000);
 			parent.currCoords.x = coords.x;
 			parent.currCoords.y = coords.y;
 		}
-		plotCoords = coords;
+		parent.plotCoords = coords;
+		console.log("Coords (setPosition): " + coords.x + ", " + coords.y);
 	}
 
 	/**
