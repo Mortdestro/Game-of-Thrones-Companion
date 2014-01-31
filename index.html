@@ -27,7 +27,7 @@
 				if (!!$("#fileinput").get(0).files[0]) {
 					file = $("#fileinput").get(0).files[0];
 				} else {
-					file = "got.mp4";
+					file = "got-small.mp4";
 				}
 
 				try {
@@ -52,7 +52,6 @@
 				$('#video').append(source);
 				vid.on("loadedmetadata", resize);
 				vid.on("timeupdate", saveTime);
-				vid.resizable();
 
 				// Add Popcorn functionality //
 				var popcorn = Popcorn( "#video" );

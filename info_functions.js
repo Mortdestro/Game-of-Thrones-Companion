@@ -96,8 +96,13 @@ function InfoBar(wrapperObj, sliderObj) {
 			
 			// Get the name 
 			// TODO: Iterate through list of names
-			datName = datum.getElementsByTagName("name")[0].textContent;
-			
+			var names = datum.getElementsByTagName("names")[0].getElementsByTagName("name");
+			var datName;
+			for (var name in names) {
+				if (checkRange(name)) {
+					datName = name.textContent;
+				}
+			}
 			// Create a paragraph with the character's name
 			linkDiv.append(jQuery("<h4/>", {"id": datId + "_h4"})).children("h4").append(datName);
 			// Create an image, use the id as the source
@@ -125,9 +130,43 @@ function getCharacter(id) {
 		character = characters[i];
 		charId = character.getElementsByTagName("id")[0].textContent;
 		if (charId == id) {
-			// console.log("Character: " + charId);
 			return character;
 		}
 	}
 }
 
+/**
+* Check to make sure the audience knows a piece of information
+*/
+function checkRange(fact) {
+	inRange = true;
+	startSeason = parseInt(fact.getAttribute("startSeason"));
+	startEpisode = parseInt(fact.getAttribute("startEpisode"));
+	startTime = parseInt(fact.getAttribute("startTime"));
+	endSeason = parseInt(fact.getAttribute("endSeason"));
+	endEpisode = parseInt(fact.getAttribute("endEpisode"));
+	endTime = parseInt(fact.getAttribute("endTime"));
+	
+	if (!!(startSeason)) {
+		// If we have a start time, see if we're after it
+		if (startSeason > season) {
+			inRange = false;
+		} else if (startEpisode > episode) {
+			inRange = false;
+		} else if (startTime > time) {
+			inRange = false;
+		}
+	}
+	if (!!(endSeason)) {
+		// If we have an end time, see if we're before it
+		if (endSeason < season) {
+			inRange = false;
+		} else if (endEpisode < episode) {
+			inRange = false;
+		} else if (endTime <= time) {
+			inRange = false;
+		}
+	}
+	
+	return inRange;
+}

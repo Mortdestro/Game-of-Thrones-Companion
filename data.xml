@@ -1,7 +1,10 @@
 <characters>
 	<character>
 		<id>EddardStark</id>
-		<name>Eddard Stark</name>
+		<names>
+			<name endSeason="1" endSeason="1" endTime="600">Eddard Stark</name>
+			<name startSeason="1" startSeason="1" startTime="600">Ned Stark</name>
+		</names>
 		<prefix startSeason="1" startEpisode="1" startTime="669">Lord</prefix>
 		<first_name>Eddard</first_name>
 		<nickname>Ned</nickname>

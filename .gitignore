@@ -182,6 +182,8 @@ $RECYCLE.BIN/
 # Mac crap
 .DS_Store
 
+# Server configuration
+web.config
 
 #############
 ## Python

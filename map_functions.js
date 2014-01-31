@@ -103,9 +103,6 @@ function Map(map_img, window, plotCoords, initCoords, initZoom, windowWidth, win
 		parent.map_img.css('left', (parent.currCoords.x * parent.currZoom - parent.windowWidth / 2) * -1 + 'px');
 		parent.map_img.css('top', (parent.currCoords.y * parent.currZoom - parent.windowHeight / 2) * -1 + 'px');
 
-		console.log((parent.currCoords.x * parent.currZoom - parent.windowWidth / 2) * -1);
-		console.log((parent.currCoords.y * parent.currZoom - parent.windowHeight / 2) * -1);
-
 		// Readjust for borders
 		if (parseInt(parent.map_img.css('left')) > 0) // left
 			parent.map_img.css('left', "0px");
@@ -115,8 +112,6 @@ function Map(map_img, window, plotCoords, initCoords, initZoom, windowWidth, win
 			parent.map_img.css('left', -1 * parent.mapWidth * parent.currZoom + parent.windowWidth + "px");
 		if (parseInt(parent.map_img.css('top')) < -1 * parent.mapHeight * parent.currZoom + parent.windowHeight) // down
 			parent.map_img.css('top', -1 * parent.mapHeight * parent.currZoom + parent.windowHeight + "px");
-
-		console.log("Coords (resize): " + parent.currCoords.x + ", " + parent.currCoords.y);
 
 		parent.resetContainment();
 	}
