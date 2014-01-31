@@ -9,11 +9,15 @@
 				Ned Stark
 			</name>
 		</names>
-		<prefix startSeason="1" startEpisode="1" startTime="669">
-			Lord
-		</prefix>
-		<first_name>Eddard</first_name>
-		<nickname>Ned</nickname>
+		<prefixes>
+			<prefix startSeason="1" startEpisode="1" startTime="669">Lord</prefix>
+		</prefixes>
+		<first_names>
+			<first_name>Eddard</first_name>
+		</first_names>
+		<nicknames>
+			<nickname>Ned</nickname>
+		</nicknames>
 		<house>Stark</house>
 		<titles>
 			<title>
@@ -26,7 +30,10 @@
 				Hand of the King
 			</title>
 		</titles>
-		<status>Alive</status>
+		<stats>
+			<stat key="First Seen">"Winter Is Coming"</stat>
+			<stat key="Status">Alive</stat>
+		</stats>
 		<facts>
 			<fact startSeason="1" startEpisode="1" startTime="669">
 				He is Lord of Winterfell.

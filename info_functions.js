@@ -156,10 +156,11 @@ function getName(datum) {
 function updateName(id) {
 	var character = getCharacter(id);
 	var name = getName(character);
-	var link = infoBar.getLinkById(id).children("h4");
+	var link = infoBar.getLinkById(id).children("h4")[0];
 	if (!(link.textContent === name)) {
 		link.textContent = name;
 	}
+	logged = true;
 }
 
 /**

@@ -15,7 +15,7 @@ function winterIsComing(pop) {
 		start: 1, // 00:01
 		onStart: mapObject.resetPosition
 	});
-	
+
 	pop.code({
 		start: 10, // 00:10
 		onStart: function() {
@@ -95,21 +95,15 @@ function winterIsComing(pop) {
 		},
 		end: 1093
 	});
-	
+
 	pop.code({
 		start: 593, // 9:53
 		onStart: function() {
-			if (!$("#EddardStark").length)
-				return infoBar.addLink(getCharacter("EddardStark"));
-			else
-				return infoBar.removeLink("EddardStark");
+			return infoBar.addLink(getCharacter("EddardStark"));
 		},
 		end: 1094, // 18:14
 		onEnd: function() {
-			if (!!$("#EddardStark").length)
-				infoBar.removeLink("EddardStark");
-			else
-				infoBar.addLink(getCharacter("EddardStark"));
+			return infoBar.removeLink("EddardStark");
 		},
 		onFrame: function() {
 			return updateName("EddardStark");

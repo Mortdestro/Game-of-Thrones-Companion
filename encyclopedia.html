@@ -6,8 +6,7 @@
 		<script src="encyclopedia.js"></script>
 		<link href="style2.css" rel="stylesheet" type="text/css" />
 		<script>
-			var charId, character, prefix, firstName, nickname, house, season, episode, time;
-			var facts = new Array();
+			var charId, character, season, episode, time;
 			var params = new Array();
 
 			function init() {
@@ -18,14 +17,9 @@
 				episode = parseInt(localStorage.episode);
 				time = parseInt(localStorage.time);
 				character = getCharacter(charId);
-				prefix = getText(character, "prefix")
-				firstName = getText(character, "first_name");
-				nickname = getText(character, "nickname");
-				house = getText(character, "house");
-				$("#name").append(prefix + " " + firstName + " \"" + nickname + "\" " + house);
+				$("#name").append(loadName(character));
 				jQuery("<img/>", {src: "character_images/" + charId + '.jpg'}).appendTo("#picture");
-				facts = character.getElementsByTagName("facts")[0].getElementsByTagName("fact");
-				loadFacts();
+				loadFacts(character);
 			}
 
 			// Search the query for the character ID
@@ -47,7 +41,14 @@
 	<body onload="init()">
 		<div id="content">
 			<div id="name"></div>
-			<div id="picture"></div>
+			<div id="profile">
+				<div id="picture"></div>
+				<div id="stats">
+					<table id="statlist">
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
 			<div id="facts">
 				<div id="facts-label">
 					<h2>What We Know</h2>
