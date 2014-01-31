@@ -164,7 +164,6 @@ function Map(map_img, window, plotCoords, initCoords, initZoom, windowWidth, win
 			parent.currCoords.y = coords.y;
 		}
 		parent.plotCoords = coords;
-		console.log("Coords (setPosition): " + coords.x + ", " + coords.y);
 	}
 
 	/**

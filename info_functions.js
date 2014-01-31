@@ -20,6 +20,7 @@ function InfoBar(wrapperObj, sliderObj) {
 	this.addLink = addLink;
 	this.removeLink = removeLink;
 	this.resize = resize;
+	this.getLinkById = getLinkById;
 
 	this.resize();
 
@@ -93,16 +94,9 @@ function InfoBar(wrapperObj, sliderObj) {
 					newWindow = window.open("encyclopedia.html?id=" + $(this).attr('id'), "_blank");
 				}
 			});
-			
-			// Get the name 
-			// TODO: Iterate through list of names
-			var names = datum.getElementsByTagName("names")[0].getElementsByTagName("name");
-			var datName;
-			for (var name in names) {
-				if (checkRange(name)) {
-					datName = name.textContent;
-				}
-			}
+
+			var datName = getName(datum);
+
 			// Create a paragraph with the character's name
 			linkDiv.append(jQuery("<h4/>", {"id": datId + "_h4"})).children("h4").append(datName);
 			// Create an image, use the id as the source
@@ -113,6 +107,13 @@ function InfoBar(wrapperObj, sliderObj) {
 			});
 		}
 	}
+	
+	/**
+	* Return the link for the given ID
+	*/
+	function getLinkById(id) {
+		return parent.sliderObj.children("#" + id);
+	}
 
 	function removeLink(id) {
 		$("#" + id).remove();
@@ -121,7 +122,7 @@ function InfoBar(wrapperObj, sliderObj) {
 }
 
 /**
-* Find a character in the XML document
+* Find a character in an XML document
 */
 function getCharacter(id) {
 	var characters = xmlDoc.getElementsByTagName("characters")[0].getElementsByTagName("character");
@@ -136,10 +137,40 @@ function getCharacter(id) {
 }
 
 /**
+* Get the display name for a particular piece of data
+*/
+function getName(datum) {
+	var names = datum.getElementsByTagName("names")[0].getElementsByTagName("name");
+	var datName;
+	for (i = 0; i < names.length; i++) {
+		var name = names[i];
+		if (checkRange(name)) {
+			return name.textContent;
+		}
+	}
+}
+
+/**
+* Update the name of a CLF
+*/
+function updateName(id) {
+	var character = getCharacter(id);
+	var name = getName(character);
+	var link = infoBar.getLinkById(id).children("h4");
+	if (!(link.textContent === name)) {
+		link.textContent = name;
+	}
+}
+
+/**
 * Check to make sure the audience knows a piece of information
 */
 function checkRange(fact) {
 	inRange = true;
+	season = parseInt(localStorage.season);
+	episode = parseInt(localStorage.episode);
+	time = parseInt(localStorage.time);
+
 	startSeason = parseInt(fact.getAttribute("startSeason"));
 	startEpisode = parseInt(fact.getAttribute("startEpisode"));
 	startTime = parseInt(fact.getAttribute("startTime"));

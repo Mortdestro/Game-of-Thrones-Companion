@@ -110,6 +110,9 @@ function winterIsComing(pop) {
 				infoBar.removeLink("EddardStark");
 			else
 				infoBar.addLink(getCharacter("EddardStark"));
+		},
+		onFrame: function() {
+			return updateName("EddardStark");
 		}
 	});
 

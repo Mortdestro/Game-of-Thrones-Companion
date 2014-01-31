@@ -15,9 +15,9 @@
 		<script>
 			
 			function init() {
+				loadXMLDoc("data.xml");
 				mapInit();
 				infoInit();
-				loadXMLDoc("data.xml");
 				// infoBar.addLink(getCharacter("EddardStark"));
 			}	
 
@@ -33,7 +33,6 @@
 				try {
 					file = window.URL.createObjectURL(file);
 				} catch (e) {
-					console.log("No file selected");
 				}
 
 				season = $("#season").get(0).value;
