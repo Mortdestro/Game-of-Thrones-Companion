@@ -104,8 +104,16 @@ function winterIsComing(pop) {
 		end: 1094, // 18:14
 		onEnd: function() {
 			return infoBar.removeLink("EddardStark");
+		}
+	});
+
+	pop.code({
+		start: 1,
+		onStart: function() {
+			return updateName("EddardStark");
 		},
-		onFrame: function() {
+		end: 660,
+		onEnd: function() {
 			return updateName("EddardStark");
 		}
 	});

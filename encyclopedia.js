@@ -11,7 +11,7 @@ function loadName(datum) {
 			break;
 		}
 	}
-	
+
 	// FIRST NAME //
 	var firstName;
 	var firstNames = datum.getElementsByTagName("first_names")[0].getElementsByTagName("first_name")
@@ -21,7 +21,7 @@ function loadName(datum) {
 			break;
 		}
 	}
-	
+
 	// NICKNAME //
 	var nickname;
 	var nicknames = datum.getElementsByTagName("nicknames")[0].getElementsByTagName("nickname")
@@ -31,15 +31,14 @@ function loadName(datum) {
 			break;
 		}
 	}
-	
+
 	// HOUSE //
-	
 	var house;
 	var houseTag = datum.getElementsByTagName("house")[0];
 	if (checkRange(houseTag)) {
 		house = houseTag.textContent;
 	}
-	
+
 	var name = "";
 	if (prefix)
 		name += prefix + " ";
@@ -63,13 +62,15 @@ function loadFacts() {
 		if (inRange) {
 			link = fact.getElementsByTagName('link')[0];
 			if (!!link) {
-				console.log(fact.childNodes[0]);
-				console.log(link.getAttribute('id'));
-				console.log(fact.childNodes[1]);
-				console.log(fact.childNodes[2]);
+				var temp = getCharacter(link.getAttribute('id'));
+				var tempName = getName(temp);
+				link = jQuery('<a/>', {"href": "encyclopedia.html?id=" + link.getAttribute('id')}).text(tempName);
+				list = jQuery("<li/>", {"class": "fact"}).appendTo("#list").append(fact.childNodes[0]).append(link);
+				list.append(fact.childNodes[1]);
+			} else {
+				// Add fact to the list
+				jQuery("<li/>", {"class": "fact"}).text(fact.textContent).appendTo("#list");
 			}
-			// Add fact to the list
-			jQuery("<li/>", {"class": "fact"}).text(fact.textContent).appendTo("#list");
 		}
 	}
 

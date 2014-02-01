@@ -72,7 +72,7 @@ function Map(map_img, window, plotCoords, initCoords, initZoom, windowWidth, win
 	this.setZoom = setZoom;
 	this.zoom = zoom;
 	this.resetContainment = resetContainment;
-	
+
 	// Set the draggability of the map
 	this.map_img.draggable({
 		addClasses: true,
@@ -120,6 +120,7 @@ function Map(map_img, window, plotCoords, initCoords, initZoom, windowWidth, win
 	this.map_img.mousewheel(this.zoom);
 
 	function startDrag(){
+		event.stopPropagation();
 		// Track when we drag
 		parent.dragging = 1;
 	}
@@ -157,7 +158,6 @@ function Map(map_img, window, plotCoords, initCoords, initZoom, windowWidth, win
 			if (practCoords.y > parent.mapHeight - parent.windowHeight / 2 / parent.currZoom) // down
 				practCoords.y = parent.mapHeight - parent.windowHeight / 2 / parent.currZoom;
 
-
 			parent.currZoom = 1;
 			$('#map_img').animate({left: (coords.x - parent.windowWidth / 2) * -1 + 'px', top: (coords.y - parent.windowHeight / 2) * -1 + 'px', height: parent.mapHeight + 'px', width: parent.mapWidth + 'px'}, 1000);
 			parent.currCoords.x = coords.x;
@@ -182,7 +182,7 @@ function Map(map_img, window, plotCoords, initCoords, initZoom, windowWidth, win
 				practCoords.x = parent.mapWidth - parent.windowWidth / 2 / parent.currZoom;
 			if (practCoords.y > parent.mapHeight - parent.windowHeight / 2 / parent.currZoom) // down
 				practCoords.y = parent.mapHeight - parent.windowHeight / 2 / parent.currZoom;
-			
+
 			$('#map_img').animate({
 				left: (practCoords.x * parent.initZoom - parent.windowWidth / 2) * -1 + 'px',
 				top: (practCoords.y * parent.initZoom - parent.windowHeight / 2) * -1 + 'px',
@@ -237,7 +237,6 @@ function Map(map_img, window, plotCoords, initCoords, initZoom, windowWidth, win
 		parent.map_img.css('left', (parent.currCoords.x * parent.currZoom - parent.windowWidth / 2) * -1 + 'px');
 		parent.map_img.css('top', (parent.currCoords.y * parent.currZoom - parent.windowHeight / 2) * -1 + 'px');
 
-		
 		// Unless it's at the border
 		if (parseInt(parent.map_img.css('left')) > 0) // left
 			parent.map_img.css('left', "0px");
@@ -248,9 +247,8 @@ function Map(map_img, window, plotCoords, initCoords, initZoom, windowWidth, win
 			parent.map_img.css('top', "0px");
 		if (parseInt(parent.map_img.css('top')) < -1 * parent.mapHeight * parent.currZoom + parent.windowHeight) // bottom
 			parent.map_img.css('top', -1 * parent.mapHeight * parent.currZoom + parent.windowHeight + "px");
-
 	}
-	
+
 	/**
 	* Set containment based on current variables (call when adjusting)
 	*/

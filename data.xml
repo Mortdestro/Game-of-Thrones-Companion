@@ -45,11 +45,24 @@
 	</character>
 	<character>
 		<id>BrandonStark</id>
-		<name>Brandon Stark</name>
-		<first_name>Brandon</first_name>
-		<nickname>Bran</nickname>
+		<names>
+			<name>Brandon Stark</name>
+		</names>
+		<prefixes>
+		</prefixes>
+		<first_names>
+			<first_name>Brandon</first_name>
+		</first_names>
+		<nicknames>
+			<nickname>Bran</nickname>
+		</nicknames>
 		<house>Stark</house>
 		<titles>
 		</titles>
+		<stats>
+			<stat key="First Seen">"Winter Is Coming"</stat>
+		</stats>
+		<facts>
+		</facts>
 	</character>
 </characters>

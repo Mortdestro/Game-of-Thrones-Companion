@@ -12,7 +12,7 @@ function InfoBar(wrapperObj, sliderObj) {
 	this.width;
 	this.height;
 	this.horizontal = true;
-	
+
 	this.wrapperObj = wrapperObj;
 	this.sliderObj = sliderObj;
 	var parent = this;
@@ -36,7 +36,7 @@ function InfoBar(wrapperObj, sliderObj) {
 			var datId = $(this).attr("id");
 			var h4 = $("#" + datId + "_h4");
 			var img = $("#" + datId + "_img");
-			
+
 			var imgHeight;
 			var linkWidth;
 			if (parent.sliderObj.height() > 90) {
@@ -46,7 +46,7 @@ function InfoBar(wrapperObj, sliderObj) {
 				imgHeight = "100%";
 				linkWidth = h4.outerWidth(true) + img.outerWidth(true);
 			}
-			
+
 			img.css("height", imgHeight);
 			$(this).css("width", linkWidth + "px");
 		});
@@ -60,7 +60,7 @@ function InfoBar(wrapperObj, sliderObj) {
 		if (sliderWidth < 0) {
 			sliderWidth = 0;
 		}
-		
+
 		parent.sliderObj.css("width", sliderWidth + "px");
 		var leftmost = wrapperWidth - sliderWidth < 0 ? sliderLeft - sliderWidth + wrapperWidth : sliderLeft;
 		var rightmost = wrapperWidth - sliderWidth < 0 ? sliderLeft : sliderLeft - sliderWidth + wrapperWidth;
@@ -107,7 +107,7 @@ function InfoBar(wrapperObj, sliderObj) {
 			});
 		}
 	}
-	
+
 	/**
 	* Return the link for the given ID
 	*/
@@ -127,7 +127,7 @@ function InfoBar(wrapperObj, sliderObj) {
 function getCharacter(id) {
 	var characters = xmlDoc.getElementsByTagName("characters")[0].getElementsByTagName("character");
 	// Note: iterates through local characters (in XML), not global array
-	for (i = 0; i < characters.length; i++) {
+	for (var i = 0; i < characters.length; i++) {
 		character = characters[i];
 		charId = character.getElementsByTagName("id")[0].textContent;
 		if (charId == id) {
@@ -140,12 +140,13 @@ function getCharacter(id) {
 * Get the display name for a particular piece of data
 */
 function getName(datum) {
+	console.log("getName called");
 	var names = datum.getElementsByTagName("names")[0].getElementsByTagName("name");
 	var datName;
-	for (i = 0; i < names.length; i++) {
+	for (var i = 0; i < names.length; i++) {
 		var name = names[i];
 		if (checkRange(name)) {
-			return name.textContent;
+			return name.textContent.trim();
 		}
 	}
 }
@@ -157,10 +158,9 @@ function updateName(id) {
 	var character = getCharacter(id);
 	var name = getName(character);
 	var link = infoBar.getLinkById(id).children("h4")[0];
-	if (!(link.textContent === name)) {
+	if (!!link && !(link.textContent === name)) {
 		link.textContent = name;
 	}
-	logged = true;
 }
 
 /**
@@ -178,7 +178,7 @@ function checkRange(fact) {
 	endSeason = parseInt(fact.getAttribute("endSeason"));
 	endEpisode = parseInt(fact.getAttribute("endEpisode"));
 	endTime = parseInt(fact.getAttribute("endTime"));
-	
+
 	if (!!(startSeason)) {
 		// If we have a start time, see if we're after it
 		if (startSeason > season) {
@@ -199,6 +199,6 @@ function checkRange(fact) {
 			inRange = false;
 		}
 	}
-	
+
 	return inRange;
 }

@@ -4,9 +4,11 @@
 			Game of Thrones Companion
 		</title>
 		<link href="style.css" rel="stylesheet" type="text/css" />
-		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+		<script src="jquery/jquery-1.9.1.js"></script>
 		<script src="jquery/jquery.mousewheel.js"></script>
-		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		<script src="jquery/jquery-ui.js"></script>
+		<script src="jquery/touch/jquery.ui.touch-punch.js"></script>
+		<script src="jquery/touch/jquery.ui.touch-punch.min.js"></script>
 		<script src="http://popcornjs.org/code/dist/popcorn-complete.js"></script>
 		<script src="XMLParse.js"></script>
 		<script src="map_functions.js"></script>
@@ -62,7 +64,7 @@
 					localStorage.time = e.currentTarget.currentTime;
 				}
 			}
-			
+
 			// Handle resize //
 			function resize() {
 				docWidth = $(document).outerWidth();
