@@ -128,8 +128,8 @@ function getCharacter(id) {
 	var characters = xmlDoc.getElementsByTagName("characters")[0].getElementsByTagName("character");
 	// Note: iterates through local characters (in XML), not global array
 	for (var i = 0; i < characters.length; i++) {
-		character = characters[i];
-		charId = character.getElementsByTagName("id")[0].textContent;
+		var character = characters[i];
+		var charId = character.getElementsByTagName("id")[0].textContent;
 		if (charId == id) {
 			return character;
 		}

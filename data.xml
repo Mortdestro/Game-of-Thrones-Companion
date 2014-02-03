@@ -35,18 +35,18 @@
 			<stat key="Status">Alive</stat>
 		</stats>
 		<facts>
+			<fact startSeason="1" startEpisode="1" startTime="593">
+				He is father to <link id="BrandonStark"></link> and <link id="JonSnow"></link>, and possibly others.
+			</fact>
 			<fact startSeason="1" startEpisode="1" startTime="669">
 				He is Lord of Winterfell.
-			</fact>
-			<fact startSeason="1" startEpisode="1" startTime="593">
-				He is father to <link id="BrandonStark">Brandon Stark</link> and Jon Snow.
 			</fact>
 		</facts>
 	</character>
 	<character>
 		<id>BrandonStark</id>
 		<names>
-			<name>Brandon Stark</name>
+			<name>Bran</name>
 		</names>
 		<prefixes>
 		</prefixes>
@@ -61,6 +61,33 @@
 		</titles>
 		<stats>
 			<stat key="First Seen">"Winter Is Coming"</stat>
+		</stats>
+		<facts>
+			<fact startSeason="1" startEpisode="1" startTime="593">
+				He is bad at archery.
+			</fact>
+			<fact startSeason="1" startEpisode="1" startTime="593">
+				He is the son of <link id="EddardStark"></link>.
+			</fact>
+		</facts>
+	</character>
+	<character>
+		<id>JonSnow</id>
+		<names>
+			<name>Jon</name>
+		</names>
+		<prefixes>
+		</prefixes>
+		<first_names>
+			<first_name>Jon</first_name>
+		</first_names>
+		<nicknames>
+			<nickname>Snow</nickname>
+		</nicknames>
+		<house></house>
+		<titles>
+		</titles>
+		<stats>
 		</stats>
 		<facts>
 		</facts>

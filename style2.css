@@ -6,6 +6,22 @@ body {
 	font-style: italic;
 }
 
+a:link {
+	color: #79F;
+}
+
+a:visited {
+	color: #A8D;
+}
+
+a:hover {
+	color: #CCC;
+}
+
+a:active {
+	color: #FFF;
+}
+
 #content {
 	margin-left: 15%;
 	margin-right: 15%;

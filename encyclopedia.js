@@ -55,30 +55,35 @@ function loadName(datum) {
 * Load relevant facts according to current time in show
 */
 function loadFacts() {
+	// Iterate through the facts listed in the XML file
 	var facts = character.getElementsByTagName("facts")[0].getElementsByTagName("fact");
-	for (i = 0; i < facts.length; i++) {
+	for (var i = 0; i < facts.length; i++) {
 		var fact = facts[i];
 		var inRange = checkRange(fact);
 		if (inRange) {
-			link = fact.getElementsByTagName('link')[0];
-			if (!!link) {
-				var temp = getCharacter(link.getAttribute('id'));
-				var tempName = getName(temp);
-				link = jQuery('<a/>', {"href": "encyclopedia.html?id=" + link.getAttribute('id')}).text(tempName);
-				list = jQuery("<li/>", {"class": "fact"}).appendTo("#list").append(fact.childNodes[0]).append(link);
-				list.append(fact.childNodes[1]);
-			} else {
-				// Add fact to the list
-				jQuery("<li/>", {"class": "fact"}).text(fact.textContent).appendTo("#list");
+			// If the fact is relevant, scan for any links to other pages
+			var linkArray = new Array();
+			var links = fact.getElementsByTagName('link');
+			for (var j = 0; j < links.length; j++) {
+				var link = links[j];
+				var name = getName(getCharacter(link.getAttribute('id')));
+				link = jQuery('<a/>', {"href": "encyclopedia.html?id=" + link.getAttribute('id')}).text(name);
+				linkArray.push(link);
 			}
+			var list = jQuery("<li/>", {"class": "fact"});
+			var j;
+			for (j = 0; j < linkArray.length; j++) {
+				list.append(fact.childNodes[j]).append(linkArray[j]);
+			}
+			list.append(fact.childNodes[j]);
+			list.appendTo("#list");
 		}
 	}
 
 	var stats = character.getElementsByTagName("stats")[0].getElementsByTagName("stat");
-	for (i = 0; i < stats.length; i++) {
+	for (var i = 0; i < stats.length; i++) {
 		var stat = stats[i];
-		var inRange = checkRange(stat);
-		if (inRange) {
+		if (checkRange(stat)) {
 			// Add status
 			var row = jQuery("<tr/>").appendTo("#statlist");
 			jQuery("<td/>", {"class": "key"}).text(stat.getAttribute("key")).appendTo(row);

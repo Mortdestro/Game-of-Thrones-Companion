@@ -148,20 +148,23 @@ function Map(map_img, window, plotCoords, initCoords, initZoom, windowWidth, win
 		if (!parent.dragging) {
 			// Readjust for borders //
 			// New variable to actually move to; other kept in case of readjustment
-			var practCoords = coords;
+			var practCoords = {x: 0, y: 0};
+			practCoords.x = coords.x;
+			practCoords.y = coords.y;
 			if (practCoords.x < 0) // left
 				practCoords.x = 0;
 			if (practCoords.y < 0) // top
 				practCoords.y = 0;
-			if (practCoords.x > parent.mapWidth - parent.windowWidth / 2 / parent.currZoom) // right
-				practCoords.x = parent.mapWidth - parent.windowWidth / 2 / parent.currZoom;
-			if (practCoords.y > parent.mapHeight - parent.windowHeight / 2 / parent.currZoom) // down
-				practCoords.y = parent.mapHeight - parent.windowHeight / 2 / parent.currZoom;
+			if (practCoords.x > parent.mapWidth - parent.windowWidth / 2) // right
+				practCoords.x = parent.mapWidth - parent.windowWidth / 2;
+			if (practCoords.y > parent.mapHeight - parent.windowHeight / 2) // down
+				practCoords.y = parent.mapHeight - parent.windowHeight / 2
 
 			parent.currZoom = 1;
-			$('#map_img').animate({left: (coords.x - parent.windowWidth / 2) * -1 + 'px', top: (coords.y - parent.windowHeight / 2) * -1 + 'px', height: parent.mapHeight + 'px', width: parent.mapWidth + 'px'}, 1000);
+			$('#map_img').animate({left: (practCoords.x - parent.windowWidth / 2) * -1 + 'px', top: (practCoords.y - parent.windowHeight / 2) * -1 + 'px', height: parent.mapHeight + 'px', width: parent.mapWidth + 'px'}, 1000);
 			parent.currCoords.x = coords.x;
 			parent.currCoords.y = coords.y;
+			resetContainment();
 		}
 		parent.plotCoords = coords;
 	}
@@ -173,15 +176,17 @@ function Map(map_img, window, plotCoords, initCoords, initZoom, windowWidth, win
 		if (!parent.dragging) {
 			// Readjust for borders //
 			// New variable to actually move to; other kept in case of readjustment
-			var practCoords = parent.initCoords;
+			var practCoords = {x: 0, y: 0};
+			practCoords.x = parent.initCoords.x;
+			practCoords.y = parent.initCoords.y;
 			if (practCoords.x < 0) // left
 				practCoords.x = 0;
 			if (practCoords.y < 0) // top
 				practCoords.y = 0;
-			if (practCoords.x > parent.mapWidth - parent.windowWidth / 2 / parent.currZoom) // right
-				practCoords.x = parent.mapWidth - parent.windowWidth / 2 / parent.currZoom;
-			if (practCoords.y > parent.mapHeight - parent.windowHeight / 2 / parent.currZoom) // down
-				practCoords.y = parent.mapHeight - parent.windowHeight / 2 / parent.currZoom;
+			if (practCoords.x > parent.mapWidth - parent.windowWidth / 2 / parent.initZoom) // right
+				practCoords.x = parent.mapWidth - parent.windowWidth / 2 / parent.initZoom;
+			if (practCoords.y > parent.mapHeight - parent.windowHeight / 2 / parent.initZoom) // down
+				practCoords.y = parent.mapHeight - parent.windowHeight / 2 / parent.initZoom;
 
 			$('#map_img').animate({
 				left: (practCoords.x * parent.initZoom - parent.windowWidth / 2) * -1 + 'px',
@@ -192,6 +197,7 @@ function Map(map_img, window, plotCoords, initCoords, initZoom, windowWidth, win
 			parent.currZoom = parent.initZoom;
 			parent.currCoords.x = parent.initCoords.x;
 			parent.currCoords.y = parent.initCoords.y;
+			resetContainment();
 		}
 		parent.plotCoords = null;
 	}
