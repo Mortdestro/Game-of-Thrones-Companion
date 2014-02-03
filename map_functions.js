@@ -120,7 +120,6 @@ function Map(map_img, window, plotCoords, initCoords, initZoom, windowWidth, win
 	this.map_img.mousewheel(this.zoom);
 
 	function startDrag(){
-		event.stopPropagation();
 		// Track when we drag
 		parent.dragging = 1;
 	}
@@ -129,7 +128,7 @@ function Map(map_img, window, plotCoords, initCoords, initZoom, windowWidth, win
 		// Update currCoords with the new coordinates
 		parent.currCoords.x = (parseInt(parent.map_img.css('left')) * -1 + parent.windowWidth / 2) / parent.currZoom;
 		parent.currCoords.y = (parseInt(parent.map_img.css('top')) * -1 + parent.windowHeight / 2) / parent.currZoom;
-		// console.log("Current coordinates: (" + parent.currCoords.x + ", " + parent.currCoords.y + ")");
+		console.log("Current coordinates: (" + parent.currCoords.x + ", " + parent.currCoords.y + ")");
 		parent.dragging = 0;
 	}
 
