@@ -141,11 +141,15 @@ function Map(map_img, window, plotCoords, initCoords, initZoom, windowWidth, win
 	* Set position by coordinates or by location name
 	*/
 	function setPosition(coords) {
+		// TODO: Decouple
+		// If we're given a string, rather than a pair of coordinates, look up the actual coordinates
 		if (!coords.x) {
 			coords = getPosition(coords);
 		}
+		// Make sure we aren't interrupting the user's movements
 		if (!parent.dragging) {
-			// Readjust for borders //
+			// Readjust to stay in bounds //
+			
 			// New variable to actually move to; other kept in case of readjustment
 			var practCoords = {x: 0, y: 0};
 			practCoords.x = coords.x;
@@ -159,10 +163,20 @@ function Map(map_img, window, plotCoords, initCoords, initZoom, windowWidth, win
 			if (practCoords.y > parent.mapHeight - parent.windowHeight / 2) // down
 				practCoords.y = parent.mapHeight - parent.windowHeight / 2
 
+			// Animate away //
+
 			parent.currZoom = 1;
-			$('#map_img').animate({left: (practCoords.x - parent.windowWidth / 2) * -1 + 'px', top: (practCoords.y - parent.windowHeight / 2) * -1 + 'px', height: parent.mapHeight + 'px', width: parent.mapWidth + 'px'}, 1000);
+			$('#map_img').animate({
+				left: (practCoords.x - parent.windowWidth / 2) * -1 + 'px',
+				top: (practCoords.y - parent.windowHeight / 2) * -1 + 'px',
+				height: parent.mapHeight + 'px',
+				width: parent.mapWidth + 'px'
+			}, 1000);
+
 			parent.currCoords.x = coords.x;
 			parent.currCoords.y = coords.y;
+
+			// Reset containment in case zoom changed
 			resetContainment();
 		}
 		parent.plotCoords = coords;
@@ -173,7 +187,8 @@ function Map(map_img, window, plotCoords, initCoords, initZoom, windowWidth, win
 	*/
 	function resetPosition() {
 		if (!parent.dragging) {
-			// Readjust for borders //
+			// Readjust to stay in bounds //
+			
 			// New variable to actually move to; other kept in case of readjustment
 			var practCoords = {x: 0, y: 0};
 			practCoords.x = parent.initCoords.x;
@@ -187,15 +202,20 @@ function Map(map_img, window, plotCoords, initCoords, initZoom, windowWidth, win
 			if (practCoords.y > parent.mapHeight - parent.windowHeight / 2 / parent.initZoom) // down
 				practCoords.y = parent.mapHeight - parent.windowHeight / 2 / parent.initZoom;
 
+			// Animate away //
+
 			$('#map_img').animate({
 				left: (practCoords.x * parent.initZoom - parent.windowWidth / 2) * -1 + 'px',
 				top: (practCoords.y * parent.initZoom - parent.windowHeight / 2) * -1 + 'px',
 				height: parent.mapHeight * parent.initZoom + 'px',
 				width: parent.mapWidth * parent.initZoom + 'px'
 			}, 1000);
+
 			parent.currZoom = parent.initZoom;
 			parent.currCoords.x = parent.initCoords.x;
 			parent.currCoords.y = parent.initCoords.y;
+
+			// Reset containment in case zoom changed
 			resetContainment();
 		}
 		parent.plotCoords = null;

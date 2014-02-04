@@ -1,95 +1,96 @@
-<characters>
-	<character>
-		<id>EddardStark</id>
-		<names>
-			<name endSeason="1" endEpisode="1" endTime="660">
-				Eddard Stark
-			</name>
-			<name startSeason="1" startEpisode="1" startTime="660">
-				Ned Stark
-			</name>
-		</names>
-		<prefixes>
-			<prefix startSeason="1" startEpisode="1" startTime="669">Lord</prefix>
-		</prefixes>
-		<first_names>
-			<first_name>Eddard</first_name>
-		</first_names>
-		<nicknames>
-			<nickname>Ned</nickname>
-		</nicknames>
-		<house>Stark</house>
-		<titles>
-			<title>
-				Lord of Winterfell
-			</title>
-			<title>
-				Warden of the North
-			</title>
-			<title startSeason="1" startEpisode="1" startTime="1792">
-				Hand of the King
-			</title>
-		</titles>
-		<stats>
-			<stat key="First Seen">"Winter Is Coming"</stat>
-			<stat key="Status">Alive</stat>
-		</stats>
-		<facts>
-			<fact startSeason="1" startEpisode="1" startTime="593">
-				He is father to <link id="BrandonStark"></link> and <link id="JonSnow"></link>, and possibly others.
-			</fact>
-			<fact startSeason="1" startEpisode="1" startTime="669">
-				He is Lord of Winterfell.
-			</fact>
-		</facts>
-	</character>
-	<character>
-		<id>BrandonStark</id>
-		<names>
-			<name>Bran</name>
-		</names>
-		<prefixes>
-		</prefixes>
-		<first_names>
-			<first_name>Brandon</first_name>
-		</first_names>
-		<nicknames>
-			<nickname>Bran</nickname>
-		</nicknames>
-		<house>Stark</house>
-		<titles>
-		</titles>
-		<stats>
-			<stat key="First Seen">"Winter Is Coming"</stat>
-		</stats>
-		<facts>
-			<fact startSeason="1" startEpisode="1" startTime="593">
-				He is bad at archery.
-			</fact>
-			<fact startSeason="1" startEpisode="1" startTime="593">
-				He is the son of <link id="EddardStark"></link>.
-			</fact>
-		</facts>
-	</character>
-	<character>
-		<id>JonSnow</id>
-		<names>
-			<name>Jon</name>
-		</names>
-		<prefixes>
-		</prefixes>
-		<first_names>
-			<first_name>Jon</first_name>
-		</first_names>
-		<nicknames>
-			<nickname>Snow</nickname>
-		</nicknames>
-		<house></house>
-		<titles>
-		</titles>
-		<stats>
-		</stats>
-		<facts>
-		</facts>
-	</character>
-</characters>
+<data>
+	<characters>
+		<character>
+			<id>EddardStark</id>
+			<names>
+				<name endSeason="1" endEpisode="1" endTime="660">
+					Eddard Stark
+				</name>
+				<name startSeason="1" startEpisode="1" startTime="660">
+					Ned Stark
+				</name>
+			</names>
+			<prefixes>
+				<prefix startSeason="1" startEpisode="1" startTime="669">
+					Lord
+				</prefix>
+			</prefixes>
+			<first_names>
+				<first_name>
+					Eddard
+				</first_name>
+			</first_names>
+			<nicknames>
+				<nickname>
+					Ned
+				</nickname>
+			</nicknames>
+			<house>Stark</house>
+			<stats>
+				<stat key="First Seen">"Winter Is Coming"</stat>
+				<stat key="Status">Alive</stat>
+				<statgroup key="Titles">
+					<stat startSeason="1" startEpisode="1" startTime="669">Lord of Winterfell</stat>
+					<stat startSeason="1" startEpisode="1" startTime="669">Warden of the North</stat>
+					<stat startSeason="1" startEpisode="1" startTime="1792">Hand of the King</stat>
+				</statgroup>
+			</stats>
+			<facts>
+				<fact startSeason="1" startEpisode="1" startTime="593">
+					He is father to <link id="BrandonStark" type="character">Brandon Stark</link> and <link id="JonSnow" type="character">Jon Snow</link>, and possibly others.
+				</fact>
+				<fact startSeason="1" startEpisode="1" startTime="669">
+					He is Lord of Winterfell.
+				</fact>
+				<fact startSeason="1" startEpisode="1" startTime="669">
+					He is the head of <link id="Stark" type="house">House Stark</link>.
+				</fact>
+			</facts>
+		</character>
+		<character>
+			<id>BrandonStark</id>
+			<names>
+				<name>Bran</name>
+			</names>
+			<first_names>
+				<first_name>Brandon</first_name>
+			</first_names>
+			<nicknames>
+				<nickname>Bran</nickname>
+			</nicknames>
+			<house>Stark</house>
+			<stats>
+				<stat key="First Seen">"Winter Is Coming"</stat>
+				<stat key="Status">Alive</stat>
+			</stats>
+			<facts>
+				<fact startSeason="1" startEpisode="1" startTime="593">
+					He is bad at archery.
+				</fact>
+				<fact startSeason="1" startEpisode="1" startTime="593">
+					He is the son of <link id="EddardStark"></link>.
+				</fact>
+			</facts>
+		</character>
+		<character>
+			<id>JonSnow</id>
+			<names>
+				<name>Jon</name>
+			</names>
+			<first_names>
+				<first_name>Jon</first_name>
+			</first_names>
+			<house>Snow</house>
+		</character>
+	</characters>
+
+	<houses>
+		<house>
+			<id>Stark</id>
+			<names>
+				<name>House Stark</name>
+			</names>
+			<house_name>Stark</house_name>
+		</house>
+	</houses>
+</data>

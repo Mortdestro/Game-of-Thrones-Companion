@@ -6,23 +6,35 @@
 		<script src="encyclopedia.js"></script>
 		<link href="style2.css" rel="stylesheet" type="text/css" />
 		<script>
-			var charId, character, season, episode, time;
+			var id, type, subject, season, episode, time;
 			var params = new Array();
 
 			function init() {
 				loadXMLDoc("data.xml");
 				querySearch();
-				charId = params["id"];
+				id = params["id"];
+				type = params["type"];
 				season = parseInt(localStorage.season);
 				episode = parseInt(localStorage.episode);
 				time = parseInt(localStorage.time);
-				character = getCharacter(charId);
-				$("#name").append(loadName(character));
-				jQuery("<img/>", {src: "character_images/" + charId + '.jpg'}).appendTo("#picture");
-				loadFacts(character);
+				subject = getDatum(id, type);
+				// Different behavior with different types
+				switch (type) {
+				case "character":
+					$("#name").append(loadCharName(subject));
+					break;
+				case "house":
+					$("#name").append(loadHouseName(subject));
+					break;
+				default:
+					break;
+				}
+				jQuery("<img/>", {src: "images/" + type + "_images/" + id + '.jpg'}).appendTo("#picture");
+				$("title").text(getName(subject));
+				loadFacts(subject);
 			}
 
-			// Search the query for the character ID
+			// Search the query to get the ID and page type
 			function querySearch() {
 				var query = window.location.search.substring(1);
 				var kvPairs = query.split('&');
@@ -36,6 +48,7 @@
 				}
 			}
 		</script>
+		<title>Encyclopedia</title>
 	</head>
 
 	<body onload="init()">

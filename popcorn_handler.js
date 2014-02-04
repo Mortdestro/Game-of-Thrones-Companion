@@ -99,7 +99,7 @@ function winterIsComing(pop) {
 	pop.code({
 		start: 593, // 9:53
 		onStart: function() {
-			return infoBar.addLink(getCharacter("EddardStark"));
+			return infoBar.addLink(getDatum("EddardStark", "character"), "character");
 		},
 		end: 1094, // 18:14
 		onEnd: function() {
@@ -108,13 +108,13 @@ function winterIsComing(pop) {
 	});
 
 	pop.code({
-		start: 1,
+		start: 593,
 		onStart: function() {
-			return updateName("EddardStark");
+			return updateName("EddardStark", "character");
 		},
 		end: 660,
 		onEnd: function() {
-			return updateName("EddardStark");
+			return updateName("EddardStark", "character");
 		}
 	});
 

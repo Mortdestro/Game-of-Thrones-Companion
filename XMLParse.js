@@ -12,4 +12,5 @@ function loadXMLDoc(dname) {
 	xmlhttp.open("GET",dname,false);
 	xmlhttp.send();
 	xmlDoc = xmlhttp.responseXML;
+	xmlDoc = xmlDoc.getElementsByTagName("data")[0];
 }

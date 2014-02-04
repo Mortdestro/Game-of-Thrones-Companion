@@ -73,7 +73,7 @@ function InfoBar(wrapperObj, sliderObj) {
 	* Add a link onto the info list at the bottom
 	* param datum: XML Object pointing to a particular datum
 	*/
-	function addLink(datum) {
+	function addLink(datum, type) {
 		if (!!(datum.getElementsByTagName("id"))) {
 			// Get the id
 			var datId = datum.getElementsByTagName("id")[0].textContent;
@@ -91,7 +91,7 @@ function InfoBar(wrapperObj, sliderObj) {
 					// If it's not being dragged, pause the video
 					$("#video").get(0).pause();
 					// And open the window in a new page/tab, with the id passed in as a query
-					newWindow = window.open("encyclopedia.html?id=" + $(this).attr('id'), "_blank");
+					newWindow = window.open("encyclopedia.html?id=" + $(this).attr('id') + "&type=" + type, "_blank");
 				}
 			});
 
@@ -100,7 +100,7 @@ function InfoBar(wrapperObj, sliderObj) {
 			// Create a paragraph with the character's name
 			linkDiv.append(jQuery("<h4/>", {"id": datId + "_h4"})).children("h4").append(datName);
 			// Create an image, use the id as the source
-			var linkImg = jQuery("<img/>", {"id": datId + "_img", "class": "link_img", "src": "character_images/" + datId + "_small.jpg"}).appendTo(linkDiv);
+			var linkImg = jQuery("<img/>", {"id": datId + "_img", "class": "link_img", "src": "images/" + type + "_images/" + datId + "_small.jpg"}).appendTo(linkDiv);
 			// Once the image is loaded
 			linkImg.load(function () {
 				parent.resize();
@@ -122,16 +122,16 @@ function InfoBar(wrapperObj, sliderObj) {
 }
 
 /**
-* Find a character in an XML document
+* Find a datum in an XML document
 */
-function getCharacter(id) {
-	var characters = xmlDoc.getElementsByTagName("characters")[0].getElementsByTagName("character");
-	// Note: iterates through local characters (in XML), not global array
-	for (var i = 0; i < characters.length; i++) {
-		var character = characters[i];
-		var charId = character.getElementsByTagName("id")[0].textContent;
-		if (charId == id) {
-			return character;
+function getDatum(id, type) {
+	var data = xmlDoc.getElementsByTagName(type + "s")[0].getElementsByTagName(type);
+	// Note: iterates through local data (in XML), not global array
+	for (var i = 0; i < data.length; i++) {
+		var datum = data[i];
+		var datId = datum.getElementsByTagName("id")[0].textContent;
+		if (datId == id) {
+			return datum;
 		}
 	}
 }
@@ -140,7 +140,6 @@ function getCharacter(id) {
 * Get the display name for a particular piece of data
 */
 function getName(datum) {
-	console.log("getName called");
 	var names = datum.getElementsByTagName("names")[0].getElementsByTagName("name");
 	var datName;
 	for (var i = 0; i < names.length; i++) {
@@ -154,9 +153,9 @@ function getName(datum) {
 /**
 * Update the name of a CLF
 */
-function updateName(id) {
-	var character = getCharacter(id);
-	var name = getName(character);
+function updateName(id, type) {
+	var datum = getDatum(id, type);
+	var name = getName(datum);
 	var link = infoBar.getLinkById(id).children("h4")[0];
 	if (!!link && !(link.textContent === name)) {
 		link.textContent = name;

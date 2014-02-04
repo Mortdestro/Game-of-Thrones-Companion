@@ -55,7 +55,7 @@ a:active {
 #stats {
 	border: 1px solid;
 	border-top: 0px;
-	padding: 3px;
+	padding: 3px 5px;
 }
 
 #statlist {
@@ -77,6 +77,11 @@ a:active {
 #statlist tr td.key {
 	font-weight: bold;
 	text-align: left;
+}
+
+.statgroup {
+	list-style: none;
+	margin: 0;
 }
 
 #facts {
