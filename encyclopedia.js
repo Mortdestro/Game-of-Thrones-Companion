@@ -68,7 +68,7 @@ function loadHouseName(datum) {
 		houseName = nameTag.textContent;
 	}
 	
-	name = "House";
+	var name = "House";
 	if (houseName)
 		name += " " + houseName;
 	
@@ -79,36 +79,6 @@ function loadHouseName(datum) {
 * Load relevant facts according to current time in show
 */
 function loadFacts() {
-	// List of most important known facts //
-	
-	if (subject.getElementsByTagName("facts").length > 0) {
-		var facts = subject.getElementsByTagName("facts")[0].getElementsByTagName("fact");
-		for (var i = 0; i < facts.length; i++) {
-			var fact = facts[i];
-			var inRange = checkRange(fact);
-			if (inRange) {
-				// If the fact is relevant, scan for any links to other pages
-				var linkArray = new Array();
-				var links = fact.getElementsByTagName('link');
-				for (var j = 0; j < links.length; j++) {
-					var link = links[j];
-					var linkID = link.getAttribute('id');
-					var linkType = link.getAttribute('type');
-					var name = getName(getDatum(linkID, linkType));
-					link = jQuery('<a/>', {"href": "encyclopedia.html?id=" + linkID + "&type=" + linkType}).text(name);
-					linkArray.push(link);
-				}
-				var list = jQuery("<li/>", {"class": "fact"});
-				var j;
-				for (j = 0; j < linkArray.length; j++) {
-					list.append(fact.childNodes[j]).append(linkArray[j]);
-				}
-				list.append(fact.childNodes[j]);
-				list.appendTo("#list");
-			}
-		}
-	}
-
 	// Stats for quick profile //
 	
 	if (subject.getElementsByTagName("stats").length > 0) {
@@ -140,6 +110,36 @@ function loadFacts() {
 				default:
 					break;
 				}
+			}
+		}
+	}
+
+	// List of most important known facts //
+
+	if (subject.getElementsByTagName("facts").length > 0) {
+		var facts = subject.getElementsByTagName("facts")[0].getElementsByTagName("fact");
+		for (var i = 0; i < facts.length; i++) {
+			var fact = facts[i];
+			var inRange = checkRange(fact);
+			if (inRange) {
+				// If the fact is relevant, scan for any links to other pages
+				var linkArray = new Array();
+				var links = fact.getElementsByTagName('link');
+				for (var j = 0; j < links.length; j++) {
+					var link = links[j];
+					var linkID = link.getAttribute('id');
+					var linkType = link.getAttribute('type');
+					var name = getName(getDatum(linkID, linkType));
+					link = jQuery('<a/>', {"href": "encyclopedia.html?id=" + linkID + "&type=" + linkType}).text(name);
+					linkArray.push(link);
+				}
+				var list = jQuery("<li/>", {"class": "fact"});
+				var j;
+				for (j = 0; j < linkArray.length; j++) {
+					list.append(fact.childNodes[j]).append(linkArray[j]);
+				}
+				list.append(fact.childNodes[j]);
+				list.appendTo("#list");
 			}
 		}
 	}

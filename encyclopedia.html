@@ -27,6 +27,7 @@
 					$("#name").append(loadHouseName(subject));
 					break;
 				default:
+					$("#name").append(getName(subject));
 					break;
 				}
 				jQuery("<img/>", {src: "images/" + type + "_images/" + id + '.jpg'}).appendTo("#picture");
