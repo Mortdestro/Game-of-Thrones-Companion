@@ -1,5 +1,5 @@
 ############################################
-## Game of Thrones Companion Guide v0.1.1
+## Game of Thrones Companion Guide v0.2
 ############################################
 
 ################
@@ -21,21 +21,24 @@ Features
 
 ## Current version features
  - Support for embedded mp4 videos
+ - Support for no video uploaded
+ - Some mobile support
  - A map of Westeros
-   - Can drag and zoom to explore the entire map (with mouse)
+   - Can drag and zoom to explore the entire map (with mouse, just drag with finger)
    - Follows progress through video and moves to current location as it changes
    - Button to immediately return you to current location
  - Information bar
-   - Inserts characters as they are relevant to scenes
-   - Characters are links to an encyclopedia
+   - Inserts characters, locations, factions as they are relevant to scenes
+   - CLFs are links to an encyclopedia
    - Pauses video when links are clicked
- - Encyclopedia of characters
+ - Encyclopedia of CLFs
    - Updates certain information according to user's location in the show
+   - Links to other pages
 
 ## Planned features
  - Support for embedded videos of all types
  - Support for no video uploaded
- - Mobile support
+ - Full mobile support
  - Full-screen support for map and info bar
  - A map of Westeros
    - Can drag and zoom to explore the entire map (with mouse, finger)
