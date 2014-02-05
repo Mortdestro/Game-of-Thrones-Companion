@@ -81,7 +81,7 @@ function InfoBar(wrapperObj, sliderObj) {
 			$("#info").css("width", "+=1000px");*/
 			// Add a div for the link
 			var linkDiv = jQuery("<div/>", {"id": datId, "class": "link"}).appendTo(parent.sliderObj);
-			// Add the click functionality
+			// Add click functionality
 			linkDiv.click(function() {
 				if ($(this).parent().hasClass('noclick')) {
 					// If the info is being dragged, remove the class (when mouse button is released)
@@ -93,6 +93,29 @@ function InfoBar(wrapperObj, sliderObj) {
 					// And open the window in a new page/tab, with the id passed in as a query
 					newWindow = window.open("encyclopedia.html?id=" + $(this).attr('id') + "&type=" + type, "_blank");
 				}
+			});
+
+			// Add hover functionality
+			linkDiv.hover(function(e) {
+				// Style and add
+				var linkWidth = parseInt($(this).outerWidth());
+				var linkHeight = parseInt($(this).outerWidth());
+				var box = jQuery('<div/>', {'id': 'hover-' + $(this).attr('id'), 'class': 'hover-box'});
+				box.appendTo($(this));
+				box.css('left', (linkWidth + 10) + 'px');
+				box.css('top',  '15%');
+
+				// Fill information in
+				var list = jQuery('<ul/>', {'class': 'hover-list'}).appendTo(box);
+				var items = getDatum($(this).attr('id'), type).getElementsByTagName('hover_items')[0].getElementsByTagName('item');
+				for (var i = 0; i < items.length; i++) {
+					var item = items[i];
+					if (checkRange(item)) {
+						jQuery('<li/>').text(item.textContent.trim()).appendTo(list);
+					}
+				}
+			}, function() {
+				$(this).children('.hover-box')[0].remove();
 			});
 
 			var datName = getName(datum);

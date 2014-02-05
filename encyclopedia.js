@@ -82,26 +82,36 @@ function loadFacts() {
 	// Stats for quick profile //
 	
 	if (subject.getElementsByTagName("stats").length > 0) {
+		// If there's a stats element in the XML file, iterate through its children
 		var stats = subject.getElementsByTagName("stats")[0].childNodes;
 		for (var i = 0; i < stats.length; i++) {
 			var child = stats[i];
+			// If the current child is an element, and is in range
 			if (child.nodeType == 1 && checkRange(child)) {
-				// Add status
+				// Add a new row to the table
 				var row = jQuery("<tr/>").appendTo("#statlist");
+				// Create a data cell with the key
+				jQuery("<td/>", {"class": "key"}).text(child.getAttribute("key")).appendTo(row);
 				switch(child.nodeName) {
 				case "stat":
-					jQuery("<td/>", {"class": "key"}).text(child.getAttribute("key")).appendTo(row);
-					jQuery("<td/>").text(child.textContent).appendTo(row);
+					// If it's a normal stat, create a cell
+					var cell = jQuery("<td/>").appendTo(row);
+					// Find any links present
+					addChildren(child, cell)
 					break;
 				case "statgroup":
-					jQuery("<td/>", {"class": "key"}).text(child.getAttribute("key")).appendTo(row);
+					// If it's a list of stats, add a cell with a list in it
 					var cell = jQuery("<td/>");
 					var list = jQuery("<ul/>", {"class": "statgroup"}).appendTo(cell);
 					var statgroup = child.getElementsByTagName("stat");
 					for (var j = 0; j < statgroup.length; j++) {
 						var stat = statgroup[j];
-						if (checkRange(stat))
-							jQuery("<li/>").text(stat.textContent).appendTo(list);
+						if (checkRange(stat)) {
+							// If it's in range, create a new item
+							var item = jQuery("<li/>").appendTo(list);
+							// Get the links in
+							addChildren(stat, item)
+						}
 					}
 					cell.appendTo(row);
 					if (list.children("li").length <= 0)
@@ -120,27 +130,58 @@ function loadFacts() {
 		var facts = subject.getElementsByTagName("facts")[0].getElementsByTagName("fact");
 		for (var i = 0; i < facts.length; i++) {
 			var fact = facts[i];
-			var inRange = checkRange(fact);
-			if (inRange) {
-				// If the fact is relevant, scan for any links to other pages
-				var linkArray = new Array();
-				var links = fact.getElementsByTagName('link');
-				for (var j = 0; j < links.length; j++) {
-					var link = links[j];
-					var linkID = link.getAttribute('id');
-					var linkType = link.getAttribute('type');
-					var name = getName(getDatum(linkID, linkType));
-					link = jQuery('<a/>', {"href": "encyclopedia.html?id=" + linkID + "&type=" + linkType}).text(name);
-					linkArray.push(link);
-				}
-				var list = jQuery("<li/>", {"class": "fact"});
-				var j;
-				for (j = 0; j < linkArray.length; j++) {
-					list.append(fact.childNodes[j]).append(linkArray[j]);
-				}
-				list.append(fact.childNodes[j]);
-				list.appendTo("#list");
+			if (checkRange(fact)) {
+				// If the fact is relevant, create a list item
+				var item = jQuery("<li/>", {"class": "fact"}).appendTo('#list');
+				// scan for any links to other pages
+				addChildren(fact, item)
 			}
 		}
 	}
+}
+
+/**
+* Return array links for any given section
+*/
+function addChildren(datum, parent) {
+	var linkArray = new Array();
+	/* var links = datum.getElementsByTagName('link');
+	for (var i = 0; i < links.length; i++) {
+		var link = links[i];
+		var linkID = link.getAttribute('id');
+		var linkType = link.getAttribute('type');
+		var name = (link.textContent != '') ? link.textContent : getName(getDatum(linkID, linkType));
+		link = jQuery('<a/>', {"href": "encyclopedia.html?id=" + linkID + "&type=" + linkType}).text(name);
+		linkArray.push(link);
+	}
+
+	var i, j = 0;
+	for (i = 0; i < linkArray.length; i++) {
+		// Iterate through children, adding them
+		parent.append(datum.childNodes[j]).append(linkArray[i]);
+		console.log(datum.childNodes[j++] + " " + linkArray[i].textContent);
+		if (datum.childNodes[j++] == linkArray[i].textContent) {
+			j++;
+		}
+	}
+	parent.append(datum.childNodes[i]); */
+	
+	for (var i = 0; i < datum.childNodes.length; i++) {
+		var piece;
+		var node = datum.childNodes[i];
+		if (node.nodeName === "link") {
+			var linkID = node.getAttribute('id');
+			var linkType = node.getAttribute('type');
+			var name = (node.textContent != '') ? node.textContent : getName(getDatum(linkID, linkType));
+			piece = jQuery('<a/>', {"href": "encyclopedia.html?id=" + linkID + "&type=" + linkType}).text(name);
+			if (datum.childNodes[i + 1].textContent == node.textContent) {
+				i++;
+			}
+		} else {
+			piece = node.textContent;
+		}
+		parent.append(piece);
+	}
+
+	return linkArray;
 }

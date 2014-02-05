@@ -63,10 +63,10 @@ body {
     height: -moz-calc(100% - 28px);
     height: calc(100% - 28px);
 	width: 5000px;
-	overflow: hidden;
 }
 
 .link {
+	position: relative;
 	border: ridge 3px #999;
 	background-color: #555;
 	padding: 4px;
@@ -76,6 +76,7 @@ body {
     height: -moz-calc(100% - 12px);
     height: calc(100% - 12px);
 	margin-right: 10px;
+	overflow: visible;
 }
 
 .link:hover {
@@ -92,4 +93,22 @@ body {
 
 .link_img {
 	float: left;
+}
+
+.hover-box  {
+	position: absolute;
+	white-space: nowrap;
+	height: auto;
+	width: auto;
+	padding: 6px;
+	font-size: 17px;
+	color: white;
+	background-color: black;
+	border: ridge 3px #999;
+	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+	font-style: italic;
+}
+
+.hover-list {
+	margin: 0;
 }

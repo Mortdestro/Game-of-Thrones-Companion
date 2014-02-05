@@ -20,12 +20,21 @@
 				<nickname>Ned</nickname>
 			</nicknames>
 			<house>Stark</house>
+			<hover_items>
+				<item startSeason="1" startEpisode="1" startTime="669">
+					Lord of Winterfell
+				</item>
+				<item>
+					Head of House Stark
+				</item>
+			</hover_items>
 			<stats>
 				<stat key="First Seen">"Winter Is Coming"</stat>
 				<stat key="Status">Alive</stat>
+				<stat key="House"><link id="Stark" type="house">Stark</link></stat>
 				<statgroup key="Titles">
 					<stat startSeason="1" startEpisode="1" startTime="669">
-						Lord of Winterfell
+						Lord of <link id="Winterfell" type="location"></link>
 					</stat>
 					<stat startSeason="1" startEpisode="1" startTime="669">
 						Warden of the North
@@ -105,7 +114,7 @@
 			<house_name>Stark</house_name>
 			<stats>
 				<stat key="Words">
-					Winter is Coming
+					"Winter is Coming"
 				</stat>
 			</stats>
 		</house>
