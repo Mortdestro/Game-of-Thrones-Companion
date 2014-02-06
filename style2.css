@@ -38,8 +38,8 @@ a:active {
 	font-size: 32pt;
 	margin-right: 10px;
 	width: auto;
-    width: -webkit-calc(100% - 318px);
-    width: -moz-calc(100% - 318px);
+	width: -webkit-calc(100% - 318px);
+	width: -moz-calc(100% - 318px);
 	width: calc(100% - 318px);
 }
 
@@ -63,7 +63,7 @@ a:active {
 	width: 100%;
 }
 
-#statlist tr  td{
+#statlist tr td{
 	border: 0px solid;
 	border-bottom: 1px solid;
 	text-align: right;
@@ -87,7 +87,7 @@ a:active {
 #facts {
 	float: left;
 	width: auto;
-    width: -webkit-calc(100% - 318px);
-    width: -moz-calc(100% - 318px);
+	width: -webkit-calc(100% - 318px);
+	width: -moz-calc(100% - 318px);
 	width: calc(100% - 318px);
 }

@@ -20,15 +20,25 @@
 				loadXMLDoc("data.xml");
 				mapInit();
 				infoInit();
-			}	
+			}
 
 			function setup() {
 				// Get form values //
-				var file;
+				var file, extension;
 				if (!!$("#fileinput").get(0).files[0]) {
 					file = $("#fileinput").get(0).files[0];
+					var filename = $("#fileinput").val();
+					extension = filename.replace(/^.*\./, '');
+					// If there is no dot anywhere in filename, we would have extension == filename
+					if (extension == filename) {
+						extension = '';
+					} else {
+						// If there is an extension, we convert to lower case
+						extension = extension.toLowerCase();
+					}
 				} else {
 					file = "got-small.mp4";
+					extension = 'mp4';
 				}
 
 				try {
@@ -48,7 +58,7 @@
 				// Set up video for playing //
 				var vid = jQuery('<video/>', {'id': 'video', 'controls': true});
 				vid.insertBefore($('#map'));
-				var source = jQuery('<source/>', {'src': file, 'type': 'video/mp4'});
+				var source = jQuery('<source/>', {'src': file, 'type': 'video/' + extension});
 				$('#video').append(source);
 				vid.on("loadedmetadata", resize);
 				vid.on("timeupdate", saveTime);

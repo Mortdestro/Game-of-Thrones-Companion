@@ -67,11 +67,11 @@ function loadHouseName(datum) {
 	if (!!nameTag && checkRange(nameTag)) {
 		houseName = nameTag.textContent;
 	}
-	
+
 	var name = "House";
 	if (houseName)
 		name += " " + houseName;
-	
+
 	return name;
 }
 
@@ -80,7 +80,7 @@ function loadHouseName(datum) {
 */
 function loadFacts() {
 	// Stats for quick profile //
-	
+
 	if (subject.getElementsByTagName("stats").length > 0) {
 		// If there's a stats element in the XML file, iterate through its children
 		var stats = subject.getElementsByTagName("stats")[0].childNodes;

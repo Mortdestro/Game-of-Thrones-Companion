@@ -27,6 +27,24 @@
 				<item>
 					Head of House Stark
 				</item>
+				<item>
+					Warden of the North
+				</item>
+				<item>
+					Played by Sean Bean
+				</item>
+				<item>
+					Dese facts
+				</item>
+				<item>
+					Such tall
+				</item>
+				<item>
+					So description
+				</item>
+				<item>
+					Wow
+				</item>
 			</hover_items>
 			<stats>
 				<stat key="First Seen">"Winter Is Coming"</stat>
@@ -68,6 +86,11 @@
 				<nickname>Bran</nickname>
 			</nicknames>
 			<house>Stark</house>
+			<hover_items>
+				<item>
+					Fourth true-born child of Eddard Stark
+				</item>
+			</hover_items>
 			<stats>
 				<stat key="First Seen">"Winter Is Coming"</stat>
 				<stat key="Status">Alive</stat>
@@ -90,6 +113,11 @@
 				<first_name>Jon</first_name>
 			</first_names>
 			<house>Snow</house>
+			<hover_items>
+				<item>
+					Base-born son of Eddard Stark
+				</item>
+			</hover_items>
 			<stats>
 				<stat key="First Seen">"Winter is Coming"</stat>
 				<stat key="Status">Alive</stat>
