@@ -10,28 +10,28 @@
 			var params = new Array();
 
 			function init() {
-				loadXMLDoc("data.xml");
+				loadXMLDoc('data.xml');
 				querySearch();
-				id = params["id"];
-				type = params["type"];
+				id = params['id'];
+				type = params['type'];
 				season = parseInt(localStorage.season);
 				episode = parseInt(localStorage.episode);
 				time = parseInt(localStorage.time);
 				subject = getDatum(id, type);
 				// Different behavior with different types
 				switch (type) {
-				case "character":
-					$("#name").append(loadCharName(subject));
+				case 'character':
+					$('#name').append(loadCharName(subject));
 					break;
-				case "house":
-					$("#name").append(loadHouseName(subject));
+				case 'house':
+					$('#name').append(loadHouseName(subject));
 					break;
 				default:
-					$("#name").append(getName(subject));
+					$('#name').append(getName(subject));
 					break;
 				}
-				jQuery("<img/>", {src: "images/" + type + "_images/" + id + '.jpg'}).appendTo("#picture");
-				$("title").text(getName(subject));
+				jQuery('<img/>', {src: 'images/' + type + '_images/' + id + '.jpg'}).appendTo('#picture');
+				$('title').text(getName(subject));
 				loadFacts(subject);
 			}
 

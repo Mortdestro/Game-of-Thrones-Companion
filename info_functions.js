@@ -2,8 +2,8 @@
 * Layout the info bar at the bottom
 */
 function infoInit() {
-	wrapper = $("#info-wrapper");
-	slider = $("#info");
+	wrapper = $('#info-wrapper');
+	slider = $('#info');
 	infoBar = new InfoBar(wrapper, slider);
 }
 
@@ -32,27 +32,27 @@ function InfoBar(wrapperObj, sliderObj) {
 		var sliderWidth = 0;
 
 		// Adjust width of each link
-		parent.sliderObj.children(".link").each(function () {
-			var datId = $(this).attr("id");
-			var h4 = $("#" + datId + "_h4");
-			var img = $("#" + datId + "_img");
+		parent.sliderObj.children('.link').each(function () {
+			var datId = $(this).attr('id');
+			var h4 = $('#' + datId + '_h4');
+			var img = $('#' + datId + '_img');
 
 			var imgHeight;
 			var linkWidth;
 			if (parent.sliderObj.height() > 90) {
-				imgHeight = "calc(100% - " + h4.height() + "px)";
-				img.css("height", imgHeight);
+				imgHeight = 'calc(100% - ' + h4.height() + 'px)';
+				img.css('height', imgHeight);
 				linkWidth = Math.max(h4.outerWidth(true), img.outerWidth(true));
 			} else {
-				imgHeight = "100%";
-				img.css("height", imgHeight);
+				imgHeight = '100%';
+				img.css('height', imgHeight);
 				linkWidth = h4.outerWidth(true) + img.outerWidth(true);
 			}
 
-			$(this).css("width", linkWidth + "px");
+			$(this).css('width', linkWidth + 'px');
 		});
 		i = 1;
-		parent.sliderObj.children(".link").each(function () {
+		parent.sliderObj.children('.link').each(function () {
 			sliderWidth += parseInt($(this).outerWidth(true));
 			i++;
 		});
@@ -60,10 +60,10 @@ function InfoBar(wrapperObj, sliderObj) {
 			sliderWidth = 0;
 		}
 
-		parent.sliderObj.css("width", sliderWidth + "px");
+		parent.sliderObj.css('width', sliderWidth + 'px');
 		var leftmost = wrapperWidth - sliderWidth < 0 ? sliderLeft - sliderWidth + wrapperWidth : sliderLeft;
 		var rightmost = wrapperWidth - sliderWidth < 0 ? sliderLeft : sliderLeft - sliderWidth + wrapperWidth;
-		$("#info").draggable({addClasses: true, start: function(event, ui) {
+		$('#info').draggable({addClasses: true, start: function(event, ui) {
 			$(this).addClass('noclick');
 		}, containment: [leftmost, sliderTop, rightmost, sliderTop]});
 	}
@@ -73,11 +73,11 @@ function InfoBar(wrapperObj, sliderObj) {
 	* param datum: XML Object pointing to a particular datum
 	*/
 	function addLink(datum, type) {
-		if (!!(datum.getElementsByTagName("id"))) {
+		if (!!(datum.getElementsByTagName('id'))) {
 			// Get the id
-			var datId = datum.getElementsByTagName("id")[0].textContent;
+			var datId = datum.getElementsByTagName('id')[0].textContent;
 			// Add a div for the link
-			var linkDiv = jQuery("<div/>", {"id": datId, "class": "link"}).appendTo(parent.sliderObj);
+			var linkDiv = jQuery('<div/>', {'id': datId, 'class': 'link'}).appendTo(parent.sliderObj);
 			// Add click functionality
 			linkDiv.click(function() {
 				if ($(this).parent().hasClass('noclick')) {
@@ -86,9 +86,9 @@ function InfoBar(wrapperObj, sliderObj) {
 				}
 				else {
 					// If it's not being dragged, pause the video
-					$("#video").get(0).pause();
+					$('#video').get(0).pause();
 					// And open the window in a new page/tab, with the id passed in as a query
-					newWindow = window.open("encyclopedia.html?id=" + $(this).attr('id') + "&type=" + type, "_blank");
+					newWindow = window.open('encyclopedia.html?id=' + $(this).attr('id') + '&type=' + type, '_blank');
 				}
 			});
 
@@ -151,9 +151,9 @@ function InfoBar(wrapperObj, sliderObj) {
 			var datName = getName(datum);
 
 			// Create a paragraph with the character's name
-			linkDiv.append(jQuery("<h4/>", {"id": datId + "_h4"})).children("h4").append(datName);
+			linkDiv.append(jQuery('<h4/>', {'id': datId + '_h4'})).children('h4').append(datName);
 			// Create an image, use the id as the source
-			var linkImg = jQuery("<img/>", {"id": datId + "_img", "class": "link_img", "src": "images/" + type + "_images/" + datId + "_small.jpg"}).appendTo(linkDiv);
+			var linkImg = jQuery('<img/>', {'id': datId + '_img', 'class': 'link_img', 'src': 'images/' + type + '_images/' + datId + '_small.jpg'}).appendTo(linkDiv);
 			// Once the image is loaded
 			linkImg.load(function () {
 				parent.resize();
@@ -165,11 +165,11 @@ function InfoBar(wrapperObj, sliderObj) {
 	* Return the link for the given ID
 	*/
 	function getLinkById(id) {
-		return parent.sliderObj.children("#" + id);
+		return parent.sliderObj.children('#' + id);
 	}
 
 	function removeLink(id) {
-		$("#" + id).remove();
+		$('#' + id).remove();
 		parent.resize();
 	}
 }
@@ -178,10 +178,10 @@ function InfoBar(wrapperObj, sliderObj) {
 * Find a datum in an XML document
 */
 function getDatum(id, type) {
-	var data = xmlDoc.getElementsByTagName(type + "s")[0].getElementsByTagName(type);
+	var data = xmlDoc.getElementsByTagName(type + 's')[0].getElementsByTagName(type);
 	for (var i = 0; i < data.length; i++) {
 		var datum = data[i];
-		var datId = datum.getElementsByTagName("id")[0].textContent;
+		var datId = datum.getElementsByTagName('id')[0].textContent;
 		if (datId == id) {
 			return datum;
 		}
@@ -192,7 +192,7 @@ function getDatum(id, type) {
 * Get the display name for a particular piece of data
 */
 function getName(datum) {
-	var names = datum.getElementsByTagName("names")[0].getElementsByTagName("name");
+	var names = datum.getElementsByTagName('names')[0].getElementsByTagName('name');
 	var datName;
 	for (var i = 0; i < names.length; i++) {
 		var name = names[i];
@@ -208,7 +208,7 @@ function getName(datum) {
 function updateName(id, type) {
 	var datum = getDatum(id, type);
 	var name = getName(datum);
-	var link = infoBar.getLinkById(id).children("h4")[0];
+	var link = infoBar.getLinkById(id).children('h4')[0];
 	if (!!link && !(link.textContent === name)) {
 		link.textContent = name;
 	}
@@ -223,12 +223,12 @@ function checkRange(fact) {
 	episode = parseInt(localStorage.episode);
 	time = parseInt(localStorage.time);
 
-	startSeason = parseInt(fact.getAttribute("startSeason"));
-	startEpisode = parseInt(fact.getAttribute("startEpisode"));
-	startTime = parseInt(fact.getAttribute("startTime"));
-	endSeason = parseInt(fact.getAttribute("endSeason"));
-	endEpisode = parseInt(fact.getAttribute("endEpisode"));
-	endTime = parseInt(fact.getAttribute("endTime"));
+	startSeason = parseInt(fact.getAttribute('startSeason'));
+	startEpisode = parseInt(fact.getAttribute('startEpisode'));
+	startTime = parseInt(fact.getAttribute('startTime'));
+	endSeason = parseInt(fact.getAttribute('endSeason'));
+	endEpisode = parseInt(fact.getAttribute('endEpisode'));
+	endTime = parseInt(fact.getAttribute('endTime'));
 
 	if (!!(startSeason)) {
 		// If we have a start time, see if we're after it

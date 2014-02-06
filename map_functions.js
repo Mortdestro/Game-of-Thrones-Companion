@@ -1,8 +1,8 @@
 var mapObject;
 
 function mapInit() {
-	var map_img = $("#map_img");
-	var window = $("#map");
+	var map_img = $('#map_img');
+	var window = $('#map');
 	var docWidth = $(document).outerWidth();
 	var docHeight = $(document).outerHeight();
 	var initZoom = .59;
@@ -16,15 +16,15 @@ function mapInit() {
 */
 function getPosition(name) {
 	var coordinates;
-	if (name == "Winterfell") {
+	if (name == 'Winterfell') {
 		coordinates = {x: 728, y: 1170};
 	} else if (name == "King's Landing") {
 		coordinates = {x: 954, y: 2303};
-	} else if (name == "Pentos") {
+	} else if (name == 'Pentos') {
 		coordinates = {x: 1557, y: 2270};
-	} else if (name == "The Haunted Forest") {
+	} else if (name == 'The Haunted Forest') {
 		coordinates = {x: 990, y: 692};
-	} else if (name == "Castle Black") {
+	} else if (name == 'Castle Black') {
 		coordinates = {x: 943, y: 755};
 	}
 	return coordinates;
@@ -105,13 +105,13 @@ function Map(map_img, window, plotCoords, initCoords, initZoom, windowWidth, win
 
 		// Readjust for borders
 		if (parseInt(parent.map_img.css('left')) > 0) // left
-			parent.map_img.css('left', "0px");
+			parent.map_img.css('left', '0px');
 		if (parseInt(parent.map_img.css('top')) > 0) // top
-			parent.map_img.css('top', "0px");
+			parent.map_img.css('top', '0px');
 		if (parseInt(parent.map_img.css('left')) < -1 * parent.mapWidth * parent.currZoom + parent.windowWidth) // right
-			parent.map_img.css('left', -1 * parent.mapWidth * parent.currZoom + parent.windowWidth + "px");
+			parent.map_img.css('left', -1 * parent.mapWidth * parent.currZoom + parent.windowWidth + 'px');
 		if (parseInt(parent.map_img.css('top')) < -1 * parent.mapHeight * parent.currZoom + parent.windowHeight) // down
-			parent.map_img.css('top', -1 * parent.mapHeight * parent.currZoom + parent.windowHeight + "px");
+			parent.map_img.css('top', -1 * parent.mapHeight * parent.currZoom + parent.windowHeight + 'px');
 
 		parent.resetContainment();
 	}
@@ -128,7 +128,7 @@ function Map(map_img, window, plotCoords, initCoords, initZoom, windowWidth, win
 		// Update currCoords with the new coordinates
 		parent.currCoords.x = (parseInt(parent.map_img.css('left')) * -1 + parent.windowWidth / 2) / parent.currZoom;
 		parent.currCoords.y = (parseInt(parent.map_img.css('top')) * -1 + parent.windowHeight / 2) / parent.currZoom;
-		console.log("Current coordinates: (" + parent.currCoords.x + ", " + parent.currCoords.y + ")");
+		console.log('Current coordinates: (' + parent.currCoords.x + ', ' + parent.currCoords.y + ')');
 		parent.dragging = 0;
 	}
 
@@ -264,14 +264,14 @@ function Map(map_img, window, plotCoords, initCoords, initZoom, windowWidth, win
 
 		// Unless it's at the border
 		if (parseInt(parent.map_img.css('left')) > 0) // left
-			parent.map_img.css('left', "0px");
+			parent.map_img.css('left', '0px');
 		if (parseInt(parent.map_img.css('left')) < -1 * parent.mapWidth * parent.currZoom + parent.windowWidth) // right
-			parent.map_img.css('left', -1 * parent.mapWidth * parent.currZoom + parent.windowWidth + "px");
+			parent.map_img.css('left', -1 * parent.mapWidth * parent.currZoom + parent.windowWidth + 'px');
 
 		if (parseInt(parent.map_img.css('top')) > 0) // top
-			parent.map_img.css('top', "0px");
+			parent.map_img.css('top', '0px');
 		if (parseInt(parent.map_img.css('top')) < -1 * parent.mapHeight * parent.currZoom + parent.windowHeight) // bottom
-			parent.map_img.css('top', -1 * parent.mapHeight * parent.currZoom + parent.windowHeight + "px");
+			parent.map_img.css('top', -1 * parent.mapHeight * parent.currZoom + parent.windowHeight + 'px');
 	}
 
 	/**
@@ -282,7 +282,7 @@ function Map(map_img, window, plotCoords, initCoords, initZoom, windowWidth, win
 			// if the map is wider than the map window
 			if (parent.mapHeight * parent.currZoom > parent.windowHeight) {
 				// and the map is taller than the map window
-				parent.map_img.draggable("option", "containment", [
+				parent.map_img.draggable('option', 'containment', [
 					parent.windowLeft - parent.mapHeight * parent.currZoom + parent.windowWidth, // left
 					parent.windowTop - parent.mapHeight * parent.currZoom + parent.windowHeight, // top
 					parent.windowLeft, // right
@@ -290,7 +290,7 @@ function Map(map_img, window, plotCoords, initCoords, initZoom, windowWidth, win
 				]);
 			} else {
 				// or else if the map window is at least as tall as the map
-				parent.map_img.draggable("option", "containment", [
+				parent.map_img.draggable('option', 'containment', [
 					parent.windowLeft - parent.mapHeight * parent.currZoom + parent.windowWidth, // left
 					parent.windowTop, // top
 					parent.windowLeft, // right
@@ -301,7 +301,7 @@ function Map(map_img, window, plotCoords, initCoords, initZoom, windowWidth, win
 			// or else if the map window is at least as wide as the map
 			if (parent.mapHeight * parent.currZoom > parent.windowHeight) {
 				// and the map is taller than the map window
-				parent.map_img.draggable("option", "containment", [
+				parent.map_img.draggable('option', 'containment', [
 					parent.windowLeft, // left
 					parent.windowTop - parent.mapHeight * parent.currZoom + parent.windowHeight, // top
 					parent.windowLeft + (parent.windowWidth - parent.mapWidth * parent.currZoom), // right
@@ -309,7 +309,7 @@ function Map(map_img, window, plotCoords, initCoords, initZoom, windowWidth, win
 				]);
 			} else {
 				// or else if the map window is at least as tall as the map
-				parent.map_img.draggable("option", "containment", [
+				parent.map_img.draggable('option', 'containment', [
 					parent.windowLeft, // left
 					parent.windowTop, // top
 					parent.windowLeft + (parent.windowWidth - parent.mapWidth * parent.currZoom), // right

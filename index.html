@@ -9,7 +9,7 @@
 		<script src="jquery/jquery-ui.js"></script>
 		<script src="jquery/touch/jquery.ui.touch-punch.js"></script>
 		<script src="jquery/touch/jquery.ui.touch-punch.min.js"></script>
-		<script src="http://popcornjs.org/code/dist/popcorn-complete.js"></script>
+		<script src="jquery/popcorn/popcorn-complete.js"></script>
 		<script src="XMLParse.js"></script>
 		<script src="map_functions.js"></script>
 		<script src="popcorn_handler.js"></script>
@@ -17,7 +17,7 @@
 		<script>
 
 			function init() {
-				loadXMLDoc("data.xml");
+				loadXMLDoc('data.xml');
 				mapInit();
 				infoInit();
 			}
@@ -25,9 +25,9 @@
 			function setup() {
 				// Get form values //
 				var file, extension;
-				if (!!$("#fileinput").get(0).files[0]) {
-					file = $("#fileinput").get(0).files[0];
-					var filename = $("#fileinput").val();
+				if (!!$('#fileinput').get(0).files[0]) {
+					file = $('#fileinput').get(0).files[0];
+					var filename = $('#fileinput').val();
 					extension = filename.replace(/^.*\./, '');
 					// If there is no dot anywhere in filename, we would have extension == filename
 					if (extension == filename) {
@@ -37,7 +37,7 @@
 						extension = extension.toLowerCase();
 					}
 				} else {
-					file = "got-small.mp4";
+					file = 'got-small.mp4';
 					extension = 'mp4';
 				}
 
@@ -46,31 +46,31 @@
 				} catch (e) {
 				}
 
-				season = $("#season").get(0).value;
+				season = $('#season').get(0).value;
 				localStorage.season = season;
-				episode = $("#episode").get(0).value;
+				episode = $('#episode').get(0).value;
 				localStorage.episode = episode;
 
 				// Get rid of the form //
-				$("#form").remove();
-				$("#title").remove();
+				$('#form').remove();
+				$('#title').remove();
 
 				// Set up video for playing //
 				var vid = jQuery('<video/>', {'id': 'video', 'controls': true});
 				vid.insertBefore($('#map'));
 				var source = jQuery('<source/>', {'src': file, 'type': 'video/' + extension});
 				$('#video').append(source);
-				vid.on("loadedmetadata", resize);
-				vid.on("timeupdate", saveTime);
+				vid.on('loadedmetadata', resize);
+				vid.on('timeupdate', saveTime);
 
 				// Add Popcorn functionality //
-				var popcorn = Popcorn( "#video" );
+				var popcorn = Popcorn( '#video' );
 				doPops(popcorn, season, episode);
 			}
 
 			// Save the current time using HTML5 storage //
 			function saveTime(e) {
-				if (typeof(Storage) !== "undefined") {
+				if (typeof(Storage) !== 'undefined') {
 					localStorage.time = e.currentTarget.currentTime;
 				}
 			}
@@ -79,9 +79,9 @@
 			function resize() {
 				docWidth = $(document).outerWidth();
 				docHeight = $(document).outerHeight();
-				if (!!$("#video").length) {
+				if (!!$('#video').length) {
 					// If the video has been loaded
-					mapObject.resize(docWidth - 40 - $("#video").outerWidth(), docHeight * .64);
+					mapObject.resize(docWidth - 40 - $('#video').outerWidth(), docHeight * .64);
 				} else {
 					// If the video hasn't been loaded
 					mapObject.resize(docWidth * .45, docHeight * .64);
@@ -104,14 +104,14 @@
 			</select></br>
 			<input type="submit" id="submit" name="submit" value="Go"></input>
 		</form>
-		<div id='content'>
-			<div id='map'>
+		<div id="content">
+			<div id="map">
 				<img id="map_img" src="speculative_map.jpg" />
 				<input id="plot_button" type="button" value="Current Location" onclick="currentLocation()" />
 			</div>
-			<div id='info-wrapper'>
+			<div id="info-wrapper">
 				<h3>Relevant pages:</h3>
-				<div id='info'></div>
+				<div id="info"></div>
 			</div>
 		</div>
 	</body>

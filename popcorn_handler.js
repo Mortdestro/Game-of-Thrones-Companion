@@ -20,7 +20,7 @@ function winterIsComing(pop) {
 		start: 10, // 00:10
 		onStart: function() {
 			if (localStorage.time >= 10 && localStorage.time < 93) {
-				return mapObject.setPosition("Castle Black");
+				return mapObject.setPosition('Castle Black');
 			}
 		},
 		end: 92
@@ -30,7 +30,7 @@ function winterIsComing(pop) {
 		start: 93, // 01:33
 		onStart: function() {
 			if (localStorage.time >= 93 && localStorage.time < 446) {
-				return mapObject.setPosition("The Haunted Forest");
+				return mapObject.setPosition('The Haunted Forest');
 			}
 		},
 		end: 445
@@ -50,7 +50,7 @@ function winterIsComing(pop) {
 		start: 469, // 07:49
 		onStart: function() {
 			if (localStorage.time >= 469 && localStorage.time < 490) {
-				return mapObject.setPosition("Winterfell");
+				return mapObject.setPosition('Winterfell');
 			}
 		},
 		end: 489
@@ -60,7 +60,7 @@ function winterIsComing(pop) {
 		start: 490, // 08:10
 		onStart: function() {
 			if (localStorage.time >= 490 && localStorage.time < 505) {
-				return mapObject.setPosition("Castle Black");
+				return mapObject.setPosition('Castle Black');
 			}
 		},
 		end: 504
@@ -80,7 +80,7 @@ function winterIsComing(pop) {
 		start: 510, // 08:30
 		onStart: function() {
 			if (localStorage.time >= 510 && localStorage.time < 537) {
-				return mapObject.setPosition("Pentos");
+				return mapObject.setPosition('Pentos');
 			}
 		},
 		end: 536
@@ -90,7 +90,7 @@ function winterIsComing(pop) {
 		start: 537, // 08:57
 		onStart: function() {
 			if (localStorage.time >= 537 && localStorage.time < 1094) {
-				return mapObject.setPosition("Winterfell");
+				return mapObject.setPosition('Winterfell');
 			}
 		},
 		end: 1093
@@ -99,33 +99,33 @@ function winterIsComing(pop) {
 	pop.code({
 		start: 570, // 9:30
 		onStart: function() {
-			return infoBar.addLink(getDatum("BrandonStark", "character"), "character");
+			return infoBar.addLink(getDatum('BrandonStark', 'character'), 'character');
 		},
 		end: 1094, // 18:14
 		onEnd: function() {
-			return infoBar.removeLink("BrandonStark");
+			return infoBar.removeLink('BrandonStark');
 		}
 	});
 
 	pop.code({
 		start: 593, // 9:53
 		onStart: function() {
-			return infoBar.addLink(getDatum("EddardStark", "character"), "character");
+			return infoBar.addLink(getDatum('EddardStark', 'character'), 'character');
 		},
 		end: 1094, // 18:14
 		onEnd: function() {
-			return infoBar.removeLink("EddardStark");
+			return infoBar.removeLink('EddardStark');
 		}
 	});
 
 	pop.code({
 		start: 593,
 		onStart: function() {
-			return updateName("EddardStark", "character");
+			return updateName('EddardStark', 'character');
 		},
 		end: 660,
 		onEnd: function() {
-			return updateName("EddardStark", "character");
+			return updateName('EddardStark', 'character');
 		}
 	});
 
@@ -143,7 +143,7 @@ function winterIsComing(pop) {
 		start: 1215, // 20:15
 		onStart: function() {
 			if (localStorage.time >= 1215 && localStorage.time < 1996) {
-				return mapObject.setPosition("Winterfell");
+				return mapObject.setPosition('Winterfell');
 			}
 		},
 		end: 1995
@@ -153,7 +153,7 @@ function winterIsComing(pop) {
 		start: 1996, // 33:16
 		onStart: function() {
 			if (localStorage.time >= 1996 && localStorage.time < 2376) {
-				return mapObject.setPosition("Pentos");
+				return mapObject.setPosition('Pentos');
 			}
 		},
 		end: 2375
@@ -163,7 +163,7 @@ function winterIsComing(pop) {
 		start: 2376, // 39:36
 		onStart: function() {
 			if (localStorage.time >= 2376 && localStorage.time < 3000) {
-				return mapObject.setPosition("Winterfell");
+				return mapObject.setPosition('Winterfell');
 			}
 		},
 		end: 2999
@@ -173,7 +173,7 @@ function winterIsComing(pop) {
 		start: 3000, // 50:00
 		onStart: function() {
 			if (localStorage.time >= 3000 && localStorage.time < 3438) {
-				return mapObject.setPosition("Pentos");
+				return mapObject.setPosition('Pentos');
 			}
 		},
 		end: 3437
@@ -183,7 +183,7 @@ function winterIsComing(pop) {
 		start: 3438, // 57:18
 		onStart: function() {
 			if (localStorage.time >= 3438 && localStorage.time < 3631) {
-				return mapObject.setPosition("Winterfell");
+				return mapObject.setPosition('Winterfell');
 			}
 		},
 		end: 3630
