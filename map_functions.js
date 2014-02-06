@@ -149,7 +149,7 @@ function Map(map_img, window, plotCoords, initCoords, initZoom, windowWidth, win
 		// Make sure we aren't interrupting the user's movements
 		if (!parent.dragging) {
 			// Readjust to stay in bounds //
-			
+
 			// New variable to actually move to; other kept in case of readjustment
 			var practCoords = {x: 0, y: 0};
 			practCoords.x = coords.x;
@@ -188,7 +188,7 @@ function Map(map_img, window, plotCoords, initCoords, initZoom, windowWidth, win
 	function resetPosition() {
 		if (!parent.dragging) {
 			// Readjust to stay in bounds //
-			
+
 			// New variable to actually move to; other kept in case of readjustment
 			var practCoords = {x: 0, y: 0};
 			practCoords.x = parent.initCoords.x;
@@ -302,7 +302,7 @@ function Map(map_img, window, plotCoords, initCoords, initZoom, windowWidth, win
 			if (parent.mapHeight * parent.currZoom > parent.windowHeight) {
 				// and the map is taller than the map window
 				parent.map_img.draggable("option", "containment", [
-					parent.windowLeft,  // left
+					parent.windowLeft, // left
 					parent.windowTop - parent.mapHeight * parent.currZoom + parent.windowHeight, // top
 					parent.windowLeft + (parent.windowWidth - parent.mapWidth * parent.currZoom), // right
 					parent.windowTop // bottom
@@ -310,7 +310,7 @@ function Map(map_img, window, plotCoords, initCoords, initZoom, windowWidth, win
 			} else {
 				// or else if the map window is at least as tall as the map
 				parent.map_img.draggable("option", "containment", [
-					parent.windowLeft,  // left
+					parent.windowLeft, // left
 					parent.windowTop, // top
 					parent.windowLeft + (parent.windowWidth - parent.mapWidth * parent.currZoom), // right
 					parent.windowTop + (parent.windowHeight - parent.mapHeight * parent.currZoom) // bottom

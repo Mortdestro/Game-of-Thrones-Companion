@@ -7,7 +7,7 @@ function infoInit() {
 	infoBar = new InfoBar(wrapper, slider);
 }
 
-function InfoBar(wrapperObj, sliderObj) {	
+function InfoBar(wrapperObj, sliderObj) {
 	// Variables for later abstraction
 	this.width;
 	this.height;
@@ -41,22 +41,21 @@ function InfoBar(wrapperObj, sliderObj) {
 			var linkWidth;
 			if (parent.sliderObj.height() > 90) {
 				imgHeight = "calc(100% - " + h4.height() + "px)";
+				img.css("height", imgHeight);
 				linkWidth = Math.max(h4.outerWidth(true), img.outerWidth(true));
 			} else {
 				imgHeight = "100%";
+				img.css("height", imgHeight);
 				linkWidth = h4.outerWidth(true) + img.outerWidth(true);
 			}
 
-			img.css("height", imgHeight);
 			$(this).css("width", linkWidth + "px");
 		});
 		i = 1;
 		parent.sliderObj.children(".link").each(function () {
 			sliderWidth += parseInt($(this).outerWidth(true));
-			// console.log(i + ": " + $(this).outerWidth(true));
 			i++;
 		});
-		// console.log("sliderWidth: " + sliderWidth);
 		if (sliderWidth < 0) {
 			sliderWidth = 0;
 		}
@@ -77,8 +76,6 @@ function InfoBar(wrapperObj, sliderObj) {
 		if (!!(datum.getElementsByTagName("id"))) {
 			// Get the id
 			var datId = datum.getElementsByTagName("id")[0].textContent;
-			/*/ Temporarily increase the width of the info div (fixes a bug)
-			$("#info").css("width", "+=1000px");*/
 			// Add a div for the link
 			var linkDiv = jQuery("<div/>", {"id": datId, "class": "link"}).appendTo(parent.sliderObj);
 			// Add click functionality
@@ -97,26 +94,59 @@ function InfoBar(wrapperObj, sliderObj) {
 
 			// Add hover functionality
 			linkDiv.hover(function(e) {
-				// Style and add
-				var linkWidth = parseInt($(this).outerWidth());
-				var linkHeight = parseInt($(this).outerWidth());
-				var box = jQuery('<div/>', {'id': 'hover-' + $(this).attr('id'), 'class': 'hover-box'});
-				box.appendTo($(this));
-				box.css('left', (linkWidth + 10) + 'px');
-				box.css('top',  '15%');
-
-				// Fill information in
-				var list = jQuery('<ul/>', {'class': 'hover-list'}).appendTo(box);
-				var items = getDatum($(this).attr('id'), type).getElementsByTagName('hover_items')[0].getElementsByTagName('item');
-				for (var i = 0; i < items.length; i++) {
-					var item = items[i];
-					if (checkRange(item)) {
-						jQuery('<li/>').text(item.textContent.trim()).appendTo(list);
-					}
+				if ($(this).children('.hover-box').length == 0) {
+					addHoverBox($(this));
 				}
 			}, function() {
 				$(this).children('.hover-box')[0].remove();
 			});
+
+			// Add mousedown functionality
+			linkDiv.mousedown(function() {
+				if ($(this).children('.hover-box').length > 0) {
+					$(this).children('.hover-box')[0].remove();
+				}
+			});
+			
+			// Add mouseup functionality
+			linkDiv.mouseup(function() {
+				if ($(this).children('.hover-box').length == 0) {
+					addHoverBox($(this));
+				}
+			});
+
+			// Add a box with brief details to the side of a link box
+			function addHoverBox(link) {
+				// Style and add
+				var linkWidth = parseInt(link.outerWidth());
+				var linkHeight = parseInt(link.outerWidth());
+				var box = jQuery('<div/>', {'id': 'hover-' + link.attr('id'), 'class': 'hover-box'});
+				box.appendTo(link);
+
+				// Fill information in
+				var list = jQuery('<ul/>', {'class': 'hover-list'}).appendTo(box);
+				list.css('width', 'auto');
+				var hoverItemsTag = getDatum(link.attr('id'), type).getElementsByTagName('hover_items');
+				if (hoverItemsTag.length > 0) {
+					var items = hoverItemsTag[0].getElementsByTagName('item');
+					for (var i = 0; i < items.length; i++) {
+						var item = items[i];
+						if (checkRange(item)) {
+							jQuery('<li/>').text(item.textContent.trim()).appendTo(list);
+						}
+					}
+				}
+				box.css('left', (linkWidth + 4 - parseInt(link.css('border-width'))) + 'px');
+				if (box.offset().left + box.outerWidth() > parent.wrapperObj.offset().left + parent.wrapperObj.outerWidth()) {
+					box.css('left', '-=' + (box.outerWidth() + (4 * 2) + link.outerWidth()));
+				}
+				
+				if (parseInt(box.outerHeight()) > parseInt(link.outerHeight()) * .85 + 3) {
+					box.css('top', (link.outerHeight() - box.outerHeight() - parseInt(link.css('border-width'))) + 'px');
+				} else {
+					box.css('top', '15%');
+				}
+			}
 
 			var datName = getName(datum);
 
@@ -149,7 +179,6 @@ function InfoBar(wrapperObj, sliderObj) {
 */
 function getDatum(id, type) {
 	var data = xmlDoc.getElementsByTagName(type + "s")[0].getElementsByTagName(type);
-	// Note: iterates through local data (in XML), not global array
 	for (var i = 0; i < data.length; i++) {
 		var datum = data[i];
 		var datId = datum.getElementsByTagName("id")[0].textContent;

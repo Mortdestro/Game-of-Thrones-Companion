@@ -96,8 +96,8 @@ function winterIsComing(pop) {
 		end: 1093
 	});
 
-	/* pop.code({
-		start: 589, // 9:49
+	pop.code({
+		start: 570, // 9:30
 		onStart: function() {
 			return infoBar.addLink(getDatum("BrandonStark", "character"), "character");
 		},
@@ -105,7 +105,7 @@ function winterIsComing(pop) {
 		onEnd: function() {
 			return infoBar.removeLink("BrandonStark");
 		}
-	}); */
+	});
 
 	pop.code({
 		start: 593, // 9:53
