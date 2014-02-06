@@ -144,28 +144,6 @@ function loadFacts() {
 * Return array links for any given section
 */
 function addChildren(datum, parent) {
-	var linkArray = new Array();
-	/* var links = datum.getElementsByTagName('link');
-	for (var i = 0; i < links.length; i++) {
-		var link = links[i];
-		var linkID = link.getAttribute('id');
-		var linkType = link.getAttribute('type');
-		var name = (link.textContent != '') ? link.textContent : getName(getDatum(linkID, linkType));
-		link = jQuery('<a/>', {"href": "encyclopedia.html?id=" + linkID + "&type=" + linkType}).text(name);
-		linkArray.push(link);
-	}
-
-	var i, j = 0;
-	for (i = 0; i < linkArray.length; i++) {
-		// Iterate through children, adding them
-		parent.append(datum.childNodes[j]).append(linkArray[i]);
-		console.log(datum.childNodes[j++] + " " + linkArray[i].textContent);
-		if (datum.childNodes[j++] == linkArray[i].textContent) {
-			j++;
-		}
-	}
-	parent.append(datum.childNodes[i]); */
-	
 	for (var i = 0; i < datum.childNodes.length; i++) {
 		var piece;
 		var node = datum.childNodes[i];
@@ -173,15 +151,11 @@ function addChildren(datum, parent) {
 			var linkID = node.getAttribute('id');
 			var linkType = node.getAttribute('type');
 			var name = (node.textContent != '') ? node.textContent : getName(getDatum(linkID, linkType));
+			console.log(name + ': ' + linkID + ', ' + linkType);
 			piece = jQuery('<a/>', {"href": "encyclopedia.html?id=" + linkID + "&type=" + linkType}).text(name);
-			if (datum.childNodes[i + 1].textContent == node.textContent) {
-				i++;
-			}
 		} else {
 			piece = node.textContent;
 		}
 		parent.append(piece);
 	}
-
-	return linkArray;
 }
