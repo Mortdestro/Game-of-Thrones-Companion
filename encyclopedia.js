@@ -114,8 +114,7 @@ function loadFacts() {
 						}
 					}
 					cell.appendTo(row);
-					if (list.children('li').length <= 0)
-						row.remove();
+					if (list.children('li').length <= 0) row.remove();
 					break;
 				default:
 					break;

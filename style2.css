@@ -91,3 +91,26 @@ a:active {
 	width: -moz-calc(100% - 318px);
 	width: calc(100% - 318px);
 }
+
+#help {
+	border-spacing: 0;
+	width: 60%;
+}
+
+#help * {
+	border: 2px solid;
+	border-bottom: none;
+	border-left: none;
+}
+
+#help tr:last-child td {
+	border-bottom: 2px solid;
+}
+
+#help tr td:first-child, #help tr th:first-child {
+	border-left: 2px solid;
+}
+
+#help td, #help th {
+	padding: 4px;
+}

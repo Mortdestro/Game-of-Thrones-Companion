@@ -4,9 +4,31 @@ body {
 	margin: 10px;
 }
 
+a:link {
+	color: #79F;
+}
+
+a:visited {
+	color: #A8D;
+}
+
+a:hover {
+	color: #CCC;
+}
+
+a:active {
+	color: #FFF;
+}
+
 #form {
 	width: 45%;
 	float: left;
+}
+#form h2 {
+	margin: 10px 0;
+	font-size: 23px;
+	font-weight: normal;
+	font-family: "Arial", sans-serif;
 }
 
 #video {
@@ -33,6 +55,14 @@ body {
 	position: absolute;
 	bottom: 10px;
 	left: 10px;
+}
+
+#help {
+	font-size: 13px;
+	position: absolute;
+	right: 20px;
+	top: 64%;
+	padding-top: 12px;
 }
 
 #info-wrapper {
