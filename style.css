@@ -4,6 +4,10 @@ body {
 	margin: 10px;
 }
 
+a {
+	text-decoration: none;
+}
+
 a:link {
 	color: #79F;
 }
@@ -58,11 +62,11 @@ a:active {
 }
 
 #help {
-	font-size: 13px;
+	font-size: 20px;
 	position: absolute;
-	right: 20px;
-	top: 64%;
-	padding-top: 12px;
+	left: 10px;
+	bottom: 30%;
+	padding-bottom: 5px;
 }
 
 #info-wrapper {

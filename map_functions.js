@@ -253,10 +253,10 @@ function Map(map_img, window, plotCoords, initCoords, initZoom, windowWidth, win
 		var MAX_ZOOM = 1.88;
 
 		// Actually zoom
-		if (down && parent.currZoom - .02 >= MIN_ZOOM) {
-			parent.setZoom(parent.currZoom - .02);
-		} else if (!down && parent.currZoom + .02 <= MAX_ZOOM){
-			parent.setZoom(parent.currZoom + .02);
+		if (down && parent.currZoom - .03 >= MIN_ZOOM) {
+			parent.setZoom(parent.currZoom - .03);
+		} else if (!down && parent.currZoom + .03 <= MAX_ZOOM){
+			parent.setZoom(parent.currZoom + .03);
 		}
 		// Keep centered
 		parent.map_img.css('left', (parent.currCoords.x * parent.currZoom - parent.windowWidth / 2) * -1 + 'px');
