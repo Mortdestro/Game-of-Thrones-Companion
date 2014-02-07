@@ -63,7 +63,21 @@
 				// Set up video for playing //
 				var vid = jQuery('<video/>', {'id': 'video', 'controls': true});
 				vid.insertBefore($('#map'));
-				var source = jQuery('<source/>', {'src': file, 'type': 'video/' + extension});
+				switch (extension) {
+				case 'mkv':
+					var source = jQuery('<source/>', {'src': file, 'type': 'video/x-matroska'});
+					break;
+				case 'wmv':
+					var source = jQuery('<source/>', {'src': file, 'type': 'video/x-ms-wmv'});
+					break;
+				case 'flv':
+					var source = jQuery('<source/>', {'src': file, 'type': 'video/x-flv'});
+					break;
+				default:
+					var source = jQuery('<source/>', {'src': file, 'type': 'video/' + extension});
+					break;
+				}
+				//var source = jQuery('<source/>', {'src': file, 'type': 'video/mp4'});
 				$('#video').append(source);
 				vid.on('loadedmetadata', resize);
 				vid.on('timeupdate', saveTime);
